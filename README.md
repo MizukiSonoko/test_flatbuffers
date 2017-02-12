@@ -151,4 +151,71 @@ RPC failed
 Segmentation fault
 ```
 
+## Valgrind 
 
+```sh
+root@6f25b0087098:/tmp/sandbox# valgrind ./grpctest
+==15195== Memcheck, a memory error detector
+==15195== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==15195== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==15195== Command: ./grpctest
+==15195==
+Server listening on 0.0.0.0:50051
+RPC failed
+==15195== Invalid read of size 8
+==15195==    at 0x53ED6C3: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::~basic_string() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+==15195==    by 0x40F199: sample::Object1T::~Object1T() (in /tmp/sandbox/grpctest)
+==15195==    by 0x40F219: sample::ObjectUnion::Reset() (in /tmp/sandbox/grpctest)
+==15195==    by 0x40D4B9: sample::ObjectUnion::~ObjectUnion() (in /tmp/sandbox/grpctest)
+==15195==    by 0x40F443: sample::Wrapper1T::~Wrapper1T() (in /tmp/sandbox/grpctest)
+==15195==    by 0x40BD53: main (in /tmp/sandbox/grpctest)
+==15195==  Address 0x74b10b0 is 0 bytes inside a block of size 40 free'd
+==15195==    at 0x4C2F24B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15195==    by 0x40F226: sample::ObjectUnion::Reset() (in /tmp/sandbox/grpctest)
+==15195==    by 0x40D4B9: sample::ObjectUnion::~ObjectUnion() (in /tmp/sandbox/grpctest)
+==15195==    by 0x40F443: sample::Wrapper1T::~Wrapper1T() (in /tmp/sandbox/grpctest)
+==15195==    by 0x40F4D3: sample::WrapperUnion::Reset() (in /tmp/sandbox/grpctest)
+==15195==    by 0x40D56B: sample::WrapperUnion::~WrapperUnion() (in /tmp/sandbox/grpctest)
+==15195==    by 0x40F5E5: sample::SampleRootT::~SampleRootT() (in /tmp/sandbox/grpctest)
+==15195==    by 0x40BD44: main (in /tmp/sandbox/grpctest)
+==15195==  Block was alloc'd at
+==15195==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15195==    by 0x411413: void sample::ObjectUnion::Set<sample::Object1T>(sample::Object1T&&) (in /tmp/sandbox/grpctest)
+==15195==    by 0x40BAB2: main (in /tmp/sandbox/grpctest)
+==15195==
+==15195== Invalid free() / delete / delete[] / realloc()
+==15195==    at 0x4C2F24B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15195==    by 0x40F226: sample::ObjectUnion::Reset() (in /tmp/sandbox/grpctest)
+==15195==    by 0x40D4B9: sample::ObjectUnion::~ObjectUnion() (in /tmp/sandbox/grpctest)
+==15195==    by 0x40F443: sample::Wrapper1T::~Wrapper1T() (in /tmp/sandbox/grpctest)
+==15195==    by 0x40BD53: main (in /tmp/sandbox/grpctest)
+==15195==  Address 0x74b10b0 is 0 bytes inside a block of size 40 free'd
+==15195==    at 0x4C2F24B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15195==    by 0x40F226: sample::ObjectUnion::Reset() (in /tmp/sandbox/grpctest)
+==15195==    by 0x40D4B9: sample::ObjectUnion::~ObjectUnion() (in /tmp/sandbox/grpctest)
+==15195==    by 0x40F443: sample::Wrapper1T::~Wrapper1T() (in /tmp/sandbox/grpctest)
+==15195==    by 0x40F4D3: sample::WrapperUnion::Reset() (in /tmp/sandbox/grpctest)
+==15195==    by 0x40D56B: sample::WrapperUnion::~WrapperUnion() (in /tmp/sandbox/grpctest)
+==15195==    by 0x40F5E5: sample::SampleRootT::~SampleRootT() (in /tmp/sandbox/grpctest)
+==15195==    by 0x40BD44: main (in /tmp/sandbox/grpctest)
+==15195==  Block was alloc'd at
+==15195==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15195==    by 0x411413: void sample::ObjectUnion::Set<sample::Object1T>(sample::Object1T&&) (in /tmp/sandbox/grpctest)
+==15195==    by 0x40BAB2: main (in /tmp/sandbox/grpctest)
+==15195==
+==15195==
+==15195== HEAP SUMMARY:
+==15195==     in use at exit: 72,828 bytes in 3 blocks
+==15195==   total heap usage: 682 allocs, 680 frees, 4,621,123 bytes allocated
+==15195==
+==15195== LEAK SUMMARY:
+==15195==    definitely lost: 100 bytes in 1 blocks
+==15195==    indirectly lost: 0 bytes in 0 blocks
+==15195==      possibly lost: 0 bytes in 0 blocks
+==15195==    still reachable: 72,728 bytes in 2 blocks
+==15195==         suppressed: 0 bytes in 0 blocks
+==15195== Rerun with --leak-check=full to see details of leaked memory
+==15195==
+==15195== For counts of detected and suppressed errors, rerun with: -v
+==15195== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+```
