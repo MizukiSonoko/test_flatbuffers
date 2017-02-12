@@ -1,0 +1,44 @@
+namespace sample;
+
+attribute "priority";
+
+table Object1{
+  text: string (required);
+  boolean: bool;  
+}
+table Object2{
+  text: string (required);
+  integer: int;
+}
+table Object3{
+  text:   string;
+}
+union Object  { Object1, Object2, Object3 }
+
+table Wrapper1{
+  object: Object (required);
+}
+table Wrapper2{
+  text:     string (required);
+  object:   Object (required);
+}
+table Wrapper3{
+  object: Object (required);
+}
+union Wrapper { Wrapper1, Wrapper2, Wrapper3 }
+
+table SampleRoot {
+  wrapper: Wrapper (required);
+}
+
+table Response{
+  status: int;
+  message: string;
+}
+
+rpc_service SampleService {
+  Endpoint(SampleRoot): Response (streaming: "none");
+}
+
+root_type SampleRoot;
+
