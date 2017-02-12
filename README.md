@@ -7,6 +7,11 @@ I write grpc + flatbuffers software.
 
 ## Environment
 
+### Flatc
+```
+flatc version 1.5.0 (Feb 12 2017)
+```
+and remove this commit(https://github.com/google/flatbuffers/commit/6cc2307c71eec0ad690ad69f03a1d89655e526c8).
 ### OS
 ```sh
 root@6f25b0087098:~# cat /etc/lsb-release
