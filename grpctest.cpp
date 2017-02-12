@@ -38,7 +38,7 @@ class ServiceImpl final : public sample::SampleService::Service {
 
     assert(sampleRootT.wrapper.AsWrapper1() != nullptr);
     assert(sampleRootT.wrapper.AsWrapper1()->object.AsObject1() != nullptr); 
-    assert(sampleRootT.wrapper.AsWrapper1()->object.AsObject1()->text != "object1_text");
+    assert(sampleRootT.wrapper.AsWrapper1()->object.AsObject1()->text == "object1_text");
     assert(sampleRootT.wrapper.AsWrapper1()->object.AsObject1()->boolean);
 
     auto responseT = ResponseT();
