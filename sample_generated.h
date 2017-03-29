@@ -312,11 +312,11 @@ inline flatbuffers::Offset<SampleRoot> CreateSampleRoot(
 
 inline flatbuffers::Offset<SampleRoot> CreateSampleRootDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
-    const std::vector<uint8_t> *objects_type = nullptr,
+    const std::vector<Object> objects_type,
     const std::vector<flatbuffers::Offset<void>> *objects = nullptr) {
   return sample::CreateSampleRoot(
       _fbb,
-      objects_type ? _fbb.CreateVector<uint8_t>(*objects_type) : Object_NONE,
+      !objects_type.empty() ? _fbb.CreateVector<Object>(objects_type) : Object_NONE,
       objects ? _fbb.CreateVector<flatbuffers::Offset<void>>(*objects) : 0);
 }
 
@@ -398,12 +398,18 @@ inline flatbuffers::Offset<SampleRoot> SampleRoot::Pack(flatbuffers::FlatBufferB
 inline flatbuffers::Offset<SampleRoot> CreateSampleRoot(flatbuffers::FlatBufferBuilder &_fbb, const SampleRootT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  auto _objects_type = _o->objects_type.size() ? _fbb.CreateVector((const uint8_t*)_o->objects_type.data(), _o->objects_type.size()) : 0;
-  auto _objects = _o->objects.size() ? _fbb.CreateVector((const uint8_t*)_o->objects.data(), _o->objects.size()) : 0;
+  auto _objects_type = _o->objects_type.size() ? _fbb.CreateVector((const Object*)_o->objects_type.data(), _o->objects_type.size()) : 0;
+  //std::vector<unsigned char*>  _objects; _objects.resize(_o->objects.size());
+  std::vector<flatbuffers::Offset<void>>  _objects; _objects.resize(_o->objects.size());
+  for(auto _i = 0; _i < _objects.size(); ++_i){
+     _objects[_i] = _o->objects[_i].Pack(_fbb);
+  }
+  //auto _objects = _o->objects.size() ? _fbb.CreateVector((const unsigned char*)_o->objects.data(), _o->objects.size()) : 0;
   return sample::CreateSampleRoot(
       _fbb,
       _objects_type,
-      _objects);
+      _fbb.CreateVector<flatbuffers::Offset<void>>(_objects)
+  );
 }
 
 inline bool VerifyObject(flatbuffers::Verifier &verifier, const void *obj, Object type) {
