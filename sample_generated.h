@@ -282,7 +282,7 @@ struct SampleRoot FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 struct SampleRootBuilder {
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_objects_type(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> objects_type) {
+  void add_objects_type(flatbuffers::Offset<flatbuffers::Vector<Object>> objects_type) {
     fbb_.AddOffset(SampleRoot::VT_OBJECTS_TYPE, objects_type);
   }
   void add_objects(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<void>>> objects) {
@@ -302,7 +302,7 @@ struct SampleRootBuilder {
 
 inline flatbuffers::Offset<SampleRoot> CreateSampleRoot(
     flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> objects_type = 0,
+    flatbuffers::Offset<flatbuffers::Vector<Object>> objects_type = 0,
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<void>>> objects = 0) {
   SampleRootBuilder builder_(_fbb);
   builder_.add_objects(objects);
@@ -316,7 +316,7 @@ inline flatbuffers::Offset<SampleRoot> CreateSampleRootDirect(
     const std::vector<flatbuffers::Offset<void>> *objects = nullptr) {
   return sample::CreateSampleRoot(
       _fbb,
-      objects_type ? _fbb.CreateVector<uint8_t>(*objects_type) : 0,
+      objects_type ? _fbb.CreateVector<uint8_t>(*objects_type) : Object_NONE,
       objects ? _fbb.CreateVector<flatbuffers::Offset<void>>(*objects) : 0);
 }
 
@@ -387,8 +387,8 @@ inline SampleRootT *SampleRoot::UnPack(const flatbuffers::resolver_function_t *_
 inline void SampleRoot::UnPackTo(SampleRootT *_o, const flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
-  { auto _e = objects_type(); if (_e) { _o->objects_type.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->objects_type[_i] = (Object)_e->Get(_i); } } };
-  { auto _e = objects(); if (_e) { _o->objects.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->objects[_i] = (Object)_e->Get(_i); } } };
+  { auto _e = objects_type(); if (_e) { _o->objects_type.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->objects_type[_i] = static_cast<Object>(_e->Get(_i)); } } };
+  { auto _e = objects(); if (_e) { _o->objects.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->objects[_i].table = ObjectUnion::UnPack(_e->Get(_i), static_cast<Object>(objects_type()->Get(_i)),_resolver); } } };
 }
 
 inline flatbuffers::Offset<SampleRoot> SampleRoot::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SampleRootT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
