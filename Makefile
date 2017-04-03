@@ -15,6 +15,10 @@ sample2_generated.h:
 flatbuf_test: sample_generated.h sample2_generated.h
 	g++ -std=c++14 -Wl,-no-as-needed $(INCS) test.cpp -o $@
 
+.PHONY: run
+run: flatbuf_test
+	./flatbuf_test
+
 .PHONY: clean
 clean:
 	- rm flatbuf_test

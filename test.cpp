@@ -154,28 +154,33 @@ int main() {
             {
                 const Object1 *obj =
                         reinterpret_cast<const Object1 *>(independent->objects()->Get(0));
-                assert(obj->text()->str() == "naobou");
+                assert(obj->text()->str() == "ayanel");
                 assert(obj->boolean());
             }
             {
                 const Object2 *obj =
                         reinterpret_cast<const Object2 *>(independent->objects()->Get(1));
-                assert(obj->text()->str() == "kayanon");
-                assert(obj->integer() == 623);
+                assert(obj->text()->str() == "nanasama");
+                assert(obj->integer() == 246);
             }
             {
                 const Object3 *obj =
                         reinterpret_cast<const Object3 *>(independent->objects()->Get(2));
-                assert(obj->text()->str() == "inosuke");
-                assert(obj->message()->str() == "pray");
+                assert(obj->text()->str() == "mimorin");
+                assert(obj->message()->str() == "pink");
             }
             {
                 const Object2 *obj =
                         reinterpret_cast<const Object2 *>(independent->objects()->Get(3));
-                assert(obj->text()->str() == "nanjolno");
-                assert(obj->integer() == 123);
+                assert(obj->text()->str() == "hiyocci");
+                assert(obj->integer() == 103);
             }
         }
+        std::cout << "\033[1m\033[92m|+---------+|\033[0m" << std::endl;
+        std::cout << "\033[1m\033[92m||         ||\033[0m" << std::endl;
+        std::cout << "\033[1m\033[92m|| Passed! ||\033[0m" << std::endl;
+        std::cout << "\033[1m\033[92m||         ||\033[0m" << std::endl;
+        std::cout << "\033[1m\033[92m|+---------+|\033[0m" << std::endl;
     }
     return 0;
 }
