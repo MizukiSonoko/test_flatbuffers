@@ -10,7 +10,11 @@ table Object2{
   text: string (required);
   integer: int;
 }
-union Object  { Object1, Object2 }
+table Object3{
+  text: string (required);
+  message: string;
+}
+union Object  { Object1, Object2, Object3 }
 
 table SampleRoot {
   objects: [Object];
