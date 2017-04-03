@@ -82,17 +82,20 @@ int main(){
                 case  Object::Object_Object1: {
                     auto obj = reinterpret_cast<const Object1 *>(v);
                     objects->emplace_back(
-                            CreateObject1Direct(fbb, obj->text()->str().c_str(), obj->boolean()).Union()); break;
+                            CreateObject1Direct(fbb, obj->text()->str().c_str(), obj->boolean()).Union());
+                    types->emplace_back(static_cast<uint8_t>(Object::Object_Object1)); break;
                 }
                 case  Object::Object_Object2: {
                     auto obj = reinterpret_cast<const Object2 *>(v);
                     objects->emplace_back(
-                            CreateObject2Direct(fbb, obj->text()->str().c_str(), obj->integer()).Union()); break;
+                            CreateObject2Direct(fbb, obj->text()->str().c_str(), obj->integer()).Union());
+                    types->emplace_back(static_cast<uint8_t>(Object::Object_Object2)); break;
                 }
                 case  Object::Object_Object3: {
                     auto obj = reinterpret_cast<const Object3 *>(v);
                     objects->emplace_back(
-                            CreateObject3Direct(fbb, obj->text()->str().c_str(), obj->message()->str().c_str()).Union()); break;
+                            CreateObject3Direct(fbb, obj->text()->str().c_str(), obj->message()->str().c_str()).Union());
+                    types->emplace_back(static_cast<uint8_t>(Object::Object_Object3)); break;
                 }
             }
         }
