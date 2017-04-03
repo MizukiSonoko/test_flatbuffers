@@ -1,0 +1,11 @@
+include "objects.fbs";
+
+namespace sample;
+
+attribute "priority";
+
+table IndependentObject{
+    objects: [Object];
+}
+
+root_type IndependentObject;

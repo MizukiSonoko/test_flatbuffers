@@ -1,0 +1,18 @@
+namespace sample;
+
+attribute "priority";
+
+table Object1{
+  text: string (required);
+  boolean: bool;
+}
+table Object2{
+  text: string (required);
+  integer: int;
+}
+table Object3{
+  text: string (required);
+  message: string;
+}
+
+union Object  { Object1, Object2, Object3 }
