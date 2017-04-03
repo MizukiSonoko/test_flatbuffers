@@ -1,4 +1,7 @@
 language: generic
+cache:
+  directories:
+    - /tmp/flatbuffers
 os: osx
 matrix:
   include:
