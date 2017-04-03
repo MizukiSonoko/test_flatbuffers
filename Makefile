@@ -4,13 +4,19 @@ all: flatbuf_test
 sample_generated.h:
 	flatc --version
 	sed -i -e "s/^flatc version.*/`flatc --version`/" README.md
-	flatc --cpp --grpc sample.fbs
+	flatc --cpp --grpc objects.fbs sample.fbs
 
-flatbuf_test: sample_generated.h
+sample2_generated.h:
+	flatc --version
+	sed -i -e "s/^flatc version.*/`flatc --version`/" README.md
+	flatc --cpp --grpc objects.fbs sample2.fbs
+
+
+flatbuf_test: sample_generated.h sample2_generated.h
 	g++ -std=c++14 -Wl,-no-as-needed $(INCS) test.cpp -o $@
 
 .PHONY: clean
 clean:
 	- rm flatbuf_test
-	- rm sample_generated.h
+	- rm sample_generated.h sample2_generated.h
 
