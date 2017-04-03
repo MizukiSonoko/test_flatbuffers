@@ -1,13 +1,14 @@
 
-all: test
+all: flatbuf_test
 
-#sample_generated.h:
-#	flatc --cpp --grpc --gen-object-api sample.fbs
+sample_generated.h:
+	flatc --version
+	flatc --cpp --grpc sample.fbs
 
-test: #sample_generated.h
-	g++ -std=c++14 -Wl,-no-as-needed sample_generated.h test.cpp -o test
+flatbuf_test: sample_generated.h
+	g++ -std=c++14 -Wl,-no-as-needed $(INCS) test.cpp -o $@
 
 .PHONY: clean
 clean:
-	rm test
+	rm flatbuf_test
 
