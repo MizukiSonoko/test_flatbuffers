@@ -27,7 +27,7 @@ int main(){
         objects->emplace_back(CreateObject2Direct(fbb, "nanjolno", /*integer=*/123).Union());
 
         const auto sample_offset =
-                CreateSampleRootDirect(fbb, types.get(), objects.get());
+            CreateSampleRootDirect(fbb, types.get(), objects.get());
         FinishSampleRootBuffer(fbb, sample_offset);
         buf_ptr = fbb.GetBufferPointer();
         flatbuffers::Verifier verifier(buf_ptr, fbb.GetSize());
@@ -100,7 +100,7 @@ int main(){
         const auto sample_offset =
             CreateSampleRootDirect(fbb,types.get(), objects.get());
         FinishSampleRootBuffer(fbb, sample_offset);
-        auto buf= fbb.GetBufferPointer();
+        auto buf = fbb.GetBufferPointer();
         flatbuffers::Verifier verifier(buf, fbb.GetSize());
         assert(VerifySampleRootBuffer(verifier));
     }
