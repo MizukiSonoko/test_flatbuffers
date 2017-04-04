@@ -1,5 +1,6 @@
 
 # GRPC + Flatbuffers test
+[![Build Status](https://travis-ci.org/MizukiSonoko/test_flatbuffers.svg?branch=master)](https://travis-ci.org/MizukiSonoko/test_flatbuffers)
 
 I write grpc + flatbuffers software.
 
