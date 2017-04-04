@@ -119,121 +119,42 @@ int main() {
 
     // Create Independent of RootType test
     {
-        {
-            flatbuffers::FlatBufferBuilder fbb;
-            // union types.
-            std::unique_ptr <std::vector<uint8_t>> types(new std::vector<uint8_t>());
-            types->emplace_back(static_cast<uint8_t>(Object::Object_Object1));
-            types->emplace_back(static_cast<uint8_t>(Object::Object_Object2));
-            types->emplace_back(static_cast<uint8_t>(Object::Object_Object3));
-            types->emplace_back(static_cast<uint8_t>(Object::Object_Object2));
-
-            // union values.
-            std::unique_ptr < std::vector < flatbuffers::Offset < void >> >
-            objects(new std::vector <flatbuffers::Offset<void>>());
-            objects->emplace_back(CreateObject1Direct(fbb, "ayanel",  /*boolean=*/true).Union());
-            objects->emplace_back(CreateObject2Direct(fbb, "nanasama",  /*integer=*/246).Union());
-            objects->emplace_back(CreateObject3Direct(fbb, "mimorin",  /*str=*/"pink").Union());
-            objects->emplace_back(CreateObject2Direct(fbb, "hiyocci", /*integer=*/103).Union());
-
-            const auto independent_offset =
-                    CreateIndependentObjectDirect(fbb, types.get(), objects.get());
-            fbb.Finish(independent_offset);
-            buf_ptr = fbb.GetBufferPointer();
-            flatbuffers::Verifier verifier(buf_ptr, fbb.GetSize());
-        }
-        {
-            const IndependentObject *independent = GetIndependentObject(buf_ptr);
-            assert(independent->objects_type()->size() == 4);
-            assert(independent->objects_type()->GetEnum<Object>(0) == Object::Object_Object1);
-            assert(independent->objects_type()->GetEnum<Object>(1) == Object::Object_Object2);
-            assert(independent->objects_type()->GetEnum<Object>(2) == Object::Object_Object3);
-            assert(independent->objects_type()->GetEnum<Object>(3) == Object::Object_Object2);
-
-            assert(independent->objects()->size() == 4);
-            {
-                const Object1 *obj =
-                        reinterpret_cast<const Object1 *>(independent->objects()->Get(0));
-                assert(obj->text()->str() == "ayanel");
-                assert(obj->boolean());
-            }
-            {
-                const Object2 *obj =
-                        reinterpret_cast<const Object2 *>(independent->objects()->Get(1));
-                assert(obj->text()->str() == "nanasama");
-                assert(obj->integer() == 246);
-            }
-            {
-                const Object3 *obj =
-                        reinterpret_cast<const Object3 *>(independent->objects()->Get(2));
-                assert(obj->text()->str() == "mimorin");
-                assert(obj->message()->str() == "pink");
-            }
-            {
-                const Object2 *obj =
-                        reinterpret_cast<const Object2 *>(independent->objects()->Get(3));
-                assert(obj->text()->str() == "hiyocci");
-                assert(obj->integer() == 103);
-            }
-        }
         // Nasted object
         {
             {
                 flatbuffers::FlatBufferBuilder fbb;
-                // union types.
-                std::unique_ptr <std::vector<uint8_t>> types(new std::vector<uint8_t>());
-                types->emplace_back(static_cast<uint8_t>(Object::Object_Object1));
-                types->emplace_back(static_cast<uint8_t>(Object::Object_Object2));
-                types->emplace_back(static_cast<uint8_t>(Object::Object_Object3));
-                types->emplace_back(static_cast<uint8_t>(Object::Object_Object2));
+                std::unique_ptr<std::vector<flatbuffers::Offset<Object1>>> object1s(new std::vector <flatbuffers::Offset<Object1>>());
+                object1s->emplace_back(CreateObject1Direct(fbb, "emperor",  /*boolean=*/true));
+                object1s->emplace_back(CreateObject1Direct(fbb, "king",  /*boolean=*/false));
+                object1s->emplace_back(CreateObject1Direct(fbb, "humboldt",  /*boolean=*/true));
 
-                // union values.
-                std::unique_ptr < std::vector < flatbuffers::Offset < void >> >
-                objects(new std::vector <flatbuffers::Offset<void>>());
-                objects->emplace_back(CreateObject1Direct(fbb, "naobou",  /*boolean=*/true).Union());
-                objects->emplace_back(CreateObject2Direct(fbb, "kayanon",  /*integer=*/623).Union());
-                objects->emplace_back(CreateObject3Direct(fbb, "inosuke",  /*str=*/"pray").Union());
-                objects->emplace_back(CreateObject2Direct(fbb, "nanjolno", /*integer=*/123).Union());
-
-                const auto sample_offset =
-                        CreateSampleRootDirect(fbb, types.get(), objects.get());
-                FinishSampleRootBuffer(fbb, sample_offset);
+                const auto independent_offset =
+                        CreateIndependentObjectDirect(fbb, object1s.get());
+                FinishIndependentObjectBuffer(fbb, independent_offset);
                 buf_ptr = fbb.GetBufferPointer();
                 flatbuffers::Verifier verifier(buf_ptr, fbb.GetSize());
-                assert(VerifySampleRootBuffer(verifier));
+                assert(VerifyIndependentObjectBuffer(verifier));
             }
             {
                 const IndependentObject *independent = GetIndependentObject(buf_ptr);
-                assert(independent->objects_type()->size() == 4);
-                assert(independent->objects_type()->GetEnum<Object>(0) == Object::Object_Object1);
-                assert(independent->objects_type()->GetEnum<Object>(1) == Object::Object_Object2);
-                assert(independent->objects_type()->GetEnum<Object>(2) == Object::Object_Object3);
-                assert(independent->objects_type()->GetEnum<Object>(3) == Object::Object_Object2);
-
-                assert(independent->objects()->size() == 4);
+                assert(independent->object1s()->size() == 3);
                 {
                     const Object1 *obj =
-                            reinterpret_cast<const Object1 *>(independent->objects()->Get(0));
-                    assert(obj->text()->str() == "ayanel");
+                            reinterpret_cast<const Object1 *>(independent->object1s()->Get(0));
+                    assert(obj->text()->str() == "emperor");
                     assert(obj->boolean());
                 }
                 {
-                    const Object2 *obj =
-                            reinterpret_cast<const Object2 *>(independent->objects()->Get(1));
-                    assert(obj->text()->str() == "nanasama");
-                    assert(obj->integer() == 246);
+                    const Object1 *obj =
+                            reinterpret_cast<const Object1 *>(independent->object1s()->Get(1));
+                    assert(obj->text()->str() == "king");
+                    assert(!obj->boolean());
                 }
                 {
-                    const Object3 *obj =
-                            reinterpret_cast<const Object3 *>(independent->objects()->Get(2));
-                    assert(obj->text()->str() == "mimorin");
-                    assert(obj->message()->str() == "pink");
-                }
-                {
-                    const Object2 *obj =
-                            reinterpret_cast<const Object2 *>(independent->objects()->Get(3));
-                    assert(obj->text()->str() == "hiyocci");
-                    assert(obj->integer() == 103);
+                    const Object1 *obj =
+                            reinterpret_cast<const Object1 *>(independent->object1s()->Get(2));
+                    assert(obj->text()->str() == "humboldt");
+                    assert(obj->boolean());
                 }
             }
         }
