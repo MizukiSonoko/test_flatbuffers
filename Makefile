@@ -23,4 +23,3 @@ run: flatbuf_test
 clean:
 	- rm flatbuf_test
 	- rm sample_generated.h sample2_generated.h
-
