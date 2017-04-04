@@ -6,8 +6,6 @@ attribute "priority";
 
 table SampleRoot {
   objects: [Object];
-
-  object1s: [Object1];
 }
 
 root_type SampleRoot;

@@ -5,7 +5,7 @@ namespace sample;
 attribute "priority";
 
 table IndependentObject{
-    objects: [Object];
+  object1s: [Object1];
 }
 
 root_type IndependentObject;
