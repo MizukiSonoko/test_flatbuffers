@@ -13,7 +13,7 @@ sample2_generated.h:
 
 
 flatbuf_test: sample_generated.h sample2_generated.h
-	g++ -std=c++14 -Wl,-no-as-needed $(INCS) test.cpp -o $@
+	g++ -std=c++0x -Wl,-no-as-needed $(INCS) test.cpp -o $@
 
 .PHONY: run
 run: flatbuf_test
@@ -23,4 +23,3 @@ run: flatbuf_test
 clean:
 	- rm flatbuf_test
 	- rm sample_generated.h sample2_generated.h
-
