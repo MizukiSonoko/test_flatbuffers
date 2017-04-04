@@ -176,11 +176,72 @@ int main() {
                 assert(obj->integer() == 103);
             }
         }
-        std::cout << "\033[1m\033[92m|+---------+|\033[0m" << std::endl;
-        std::cout << "\033[1m\033[92m||         ||\033[0m" << std::endl;
-        std::cout << "\033[1m\033[92m|| Passed! ||\033[0m" << std::endl;
-        std::cout << "\033[1m\033[92m||         ||\033[0m" << std::endl;
-        std::cout << "\033[1m\033[92m|+---------+|\033[0m" << std::endl;
+        // Nasted object
+        {
+            {
+                flatbuffers::FlatBufferBuilder fbb;
+                // union types.
+                std::unique_ptr <std::vector<uint8_t>> types(new std::vector<uint8_t>());
+                types->emplace_back(static_cast<uint8_t>(Object::Object_Object1));
+                types->emplace_back(static_cast<uint8_t>(Object::Object_Object2));
+                types->emplace_back(static_cast<uint8_t>(Object::Object_Object3));
+                types->emplace_back(static_cast<uint8_t>(Object::Object_Object2));
+
+                // union values.
+                std::unique_ptr < std::vector < flatbuffers::Offset < void >> >
+                objects(new std::vector <flatbuffers::Offset<void>>());
+                objects->emplace_back(CreateObject1Direct(fbb, "naobou",  /*boolean=*/true).Union());
+                objects->emplace_back(CreateObject2Direct(fbb, "kayanon",  /*integer=*/623).Union());
+                objects->emplace_back(CreateObject3Direct(fbb, "inosuke",  /*str=*/"pray").Union());
+                objects->emplace_back(CreateObject2Direct(fbb, "nanjolno", /*integer=*/123).Union());
+
+                const auto sample_offset =
+                        CreateSampleRootDirect(fbb, types.get(), objects.get());
+                FinishSampleRootBuffer(fbb, sample_offset);
+                buf_ptr = fbb.GetBufferPointer();
+                flatbuffers::Verifier verifier(buf_ptr, fbb.GetSize());
+                assert(VerifySampleRootBuffer(verifier));
+            }
+            {
+                const IndependentObject *independent = GetIndependentObject(buf_ptr);
+                assert(independent->objects_type()->size() == 4);
+                assert(independent->objects_type()->GetEnum<Object>(0) == Object::Object_Object1);
+                assert(independent->objects_type()->GetEnum<Object>(1) == Object::Object_Object2);
+                assert(independent->objects_type()->GetEnum<Object>(2) == Object::Object_Object3);
+                assert(independent->objects_type()->GetEnum<Object>(3) == Object::Object_Object2);
+
+                assert(independent->objects()->size() == 4);
+                {
+                    const Object1 *obj =
+                            reinterpret_cast<const Object1 *>(independent->objects()->Get(0));
+                    assert(obj->text()->str() == "ayanel");
+                    assert(obj->boolean());
+                }
+                {
+                    const Object2 *obj =
+                            reinterpret_cast<const Object2 *>(independent->objects()->Get(1));
+                    assert(obj->text()->str() == "nanasama");
+                    assert(obj->integer() == 246);
+                }
+                {
+                    const Object3 *obj =
+                            reinterpret_cast<const Object3 *>(independent->objects()->Get(2));
+                    assert(obj->text()->str() == "mimorin");
+                    assert(obj->message()->str() == "pink");
+                }
+                {
+                    const Object2 *obj =
+                            reinterpret_cast<const Object2 *>(independent->objects()->Get(3));
+                    assert(obj->text()->str() == "hiyocci");
+                    assert(obj->integer() == 103);
+                }
+            }
+        }
     }
+    std::cout << "\033[1m\033[92m|+---------+|\033[0m" << std::endl;
+    std::cout << "\033[1m\033[92m||         ||\033[0m" << std::endl;
+    std::cout << "\033[1m\033[92m|| Passed! ||\033[0m" << std::endl;
+    std::cout << "\033[1m\033[92m||         ||\033[0m" << std::endl;
+    std::cout << "\033[1m\033[92m|+---------+|\033[0m" << std::endl;
     return 0;
 }

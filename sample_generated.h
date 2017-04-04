@@ -15,13 +15,17 @@ struct SampleRoot;
 struct SampleRoot FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum {
     VT_OBJECTS_TYPE = 4,
-    VT_OBJECTS = 6
+    VT_OBJECTS = 6,
+    VT_OBJECT1S = 8
   };
   const flatbuffers::Vector<uint8_t> *objects_type() const {
     return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_OBJECTS_TYPE);
   }
   const flatbuffers::Vector<flatbuffers::Offset<void>> *objects() const {
     return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<void>> *>(VT_OBJECTS);
+  }
+  const flatbuffers::Vector<flatbuffers::Offset<sample::Object1>> *object1s() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<sample::Object1>> *>(VT_OBJECT1S);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -30,6 +34,9 @@ struct SampleRoot FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyField<flatbuffers::uoffset_t>(verifier, VT_OBJECTS) &&
            verifier.Verify(objects()) &&
            VerifyObjectVector(verifier, objects(), objects_type()) &&
+           VerifyField<flatbuffers::uoffset_t>(verifier, VT_OBJECT1S) &&
+           verifier.Verify(object1s()) &&
+           verifier.VerifyVectorOfTables(object1s()) &&
            verifier.EndTable();
   }
 };
@@ -43,13 +50,16 @@ struct SampleRootBuilder {
   void add_objects(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<void>>> objects) {
     fbb_.AddOffset(SampleRoot::VT_OBJECTS, objects);
   }
+  void add_object1s(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<sample::Object1>>> object1s) {
+    fbb_.AddOffset(SampleRoot::VT_OBJECT1S, object1s);
+  }
   SampleRootBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   SampleRootBuilder &operator=(const SampleRootBuilder &);
   flatbuffers::Offset<SampleRoot> Finish() {
-    const auto end = fbb_.EndTable(start_, 2);
+    const auto end = fbb_.EndTable(start_, 3);
     auto o = flatbuffers::Offset<SampleRoot>(end);
     return o;
   }
@@ -58,8 +68,10 @@ struct SampleRootBuilder {
 inline flatbuffers::Offset<SampleRoot> CreateSampleRoot(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<flatbuffers::Vector<uint8_t>> objects_type = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<void>>> objects = 0) {
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<void>>> objects = 0,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<sample::Object1>>> object1s = 0) {
   SampleRootBuilder builder_(_fbb);
+  builder_.add_object1s(object1s);
   builder_.add_objects(objects);
   builder_.add_objects_type(objects_type);
   return builder_.Finish();
@@ -68,11 +80,13 @@ inline flatbuffers::Offset<SampleRoot> CreateSampleRoot(
 inline flatbuffers::Offset<SampleRoot> CreateSampleRootDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<uint8_t> *objects_type = nullptr,
-    const std::vector<flatbuffers::Offset<void>> *objects = nullptr) {
+    const std::vector<flatbuffers::Offset<void>> *objects = nullptr,
+    const std::vector<flatbuffers::Offset<sample::Object1>> *object1s = nullptr) {
   return sample::CreateSampleRoot(
       _fbb,
       objects_type ? _fbb.CreateVector<uint8_t>(*objects_type) : 0,
-      objects ? _fbb.CreateVector<flatbuffers::Offset<void>>(*objects) : 0);
+      objects ? _fbb.CreateVector<flatbuffers::Offset<void>>(*objects) : 0,
+      object1s ? _fbb.CreateVector<flatbuffers::Offset<sample::Object1>>(*object1s) : 0);
 }
 
 inline const sample::SampleRoot *GetSampleRoot(const void *buf) {
