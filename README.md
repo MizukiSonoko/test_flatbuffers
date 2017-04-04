@@ -9,7 +9,7 @@ I write grpc + flatbuffers software.
 $ cd /tmp
 $ git clone https://github.com/google/flatbuffers.git 
 $ cd flatbuffers
-$ make && make install
+$ cmake -G "Unix Makefiles" && make && make install
 ```
 
 # Usage
