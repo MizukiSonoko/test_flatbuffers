@@ -4,8 +4,8 @@
 #include <thread>
 #include <grpc++/grpc++.h>
 
-#include "grpc/for_grpc.grpc.fb.h>
-#include "grpc/for_grpc_generated.h>
+#include "grpc/for_grpc.grpc.fb.h"
+#include "grpc/for_grpc_generated.h"
 
 std::atomic_bool running(true);
 
@@ -50,12 +50,12 @@ void run() {
     builder.RegisterService(&service);
 
     wait_for_server.lock();
-    server_instance = builder.BuildAndStart().release();
+    server = builder.BuildAndStart().release();
     wait_for_server.unlock();
-    server_instance_cv.notify_one();
+    server_cv.notify_one();
 
     std::cout << "Server listening on " << server_address << std::endl;
-    server_instance->Wait();
+    server->Wait();
 }
 
 int main(int /*argc*/, const char * /*argv*/[]) {
@@ -70,6 +70,6 @@ int main(int /*argc*/, const char * /*argv*/[]) {
 
     server->Shutdown();
     server_thread.join();
-    delete server_instance;
+    delete server;
     return 0;
 }
