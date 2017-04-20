@@ -1,5 +1,5 @@
 
-all: flatbuf_test
+all: flatbuf_test grpc_server
 
 sample_generated.h:
 	flatc --version
@@ -12,8 +12,16 @@ sample2_generated.h:
 	flatc --cpp --grpc objects.fbs sample2.fbs
 
 
+grpc/for_grpc_generated.h:
+	flatc --version
+	sed -i -e "s/^flatc version.*/`flatc --version`/" README.md
+	cd grpc; flatc --cpp --grpc for_grpc.fbs
+
 flatbuf_test: sample_generated.h sample2_generated.h
 	g++ -std=c++0x -Wl,-no-as-needed $(INCS) test.cpp -o $@
+
+grpc_server: grpc/for_grpc_generated.h
+    g++ -std=c++0x Wl,-no-as-needed -lgrpc -lgrpc++ -lgpr -pthread $(INCS) grpc/for_grpc.grpc.fb.cc test.cpp -o $@
 
 .PHONY: run
 run: flatbuf_test
