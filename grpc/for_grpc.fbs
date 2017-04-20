@@ -1,0 +1,20 @@
+namespace sample;
+
+attribute "priority";
+
+table Request {
+  text: string (required);
+  integer: int;
+}
+
+table Response {
+  message: string (required);
+  core:    int;
+}
+ 
+rpc_service SampleEndpoint {
+    Port(Request):Response (streaming: "none");
+}
+
+
+root_type Request;
