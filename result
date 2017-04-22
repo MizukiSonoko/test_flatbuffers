@@ -1,0 +1,955 @@
+In file included from /usr/include/c++/5/cstdint:35:0,
+                 from /usr/local/include/flatbuffers/flatbuffers.h:23,
+                 from sample_generated.h:7,
+                 from test.cpp:1:
+/usr/include/c++/5/bits/c++0x_warning.h:32:2: error: #error This file requires compiler and library support for the ISO C++ 2011 standard. This support must be enabled with the -std=c++11 or -std=gnu++11 compiler options.
+ #error This file requires compiler and library support \
+  ^
+In file included from sample_generated.h:7:0,
+                 from test.cpp:1:
+/usr/local/include/flatbuffers/flatbuffers.h:137:9: error: 'uint32_t' does not name a type
+ typedef uint32_t uoffset_t;
+         ^
+/usr/local/include/flatbuffers/flatbuffers.h:144:9: error: 'uint16_t' does not name a type
+ typedef uint16_t voffset_t;
+         ^
+/usr/local/include/flatbuffers/flatbuffers.h:146:9: error: 'uintmax_t' does not name a type
+ typedef uintmax_t largest_scalar_t;
+         ^
+/usr/local/include/flatbuffers/flatbuffers.h:156:14: error: 'unique_ptr' in namespace 'std' does not name a template type
+ typedef std::unique_ptr<uint8_t, std::function<void(uint8_t * /* unused */)>>
+              ^
+/usr/local/include/flatbuffers/flatbuffers.h:162:3: error: 'uoffset_t' does not name a type
+   uoffset_t o;
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:164:20: error: expected ')' before '_o'
+   Offset(uoffset_t _o) : o(_o) {}
+                    ^
+/usr/local/include/flatbuffers/flatbuffers.h: In constructor 'flatbuffers::Offset<T>::Offset()':
+/usr/local/include/flatbuffers/flatbuffers.h:163:14: error: class 'flatbuffers::Offset<T>' does not have any field named 'o'
+   Offset() : o(0) {}
+              ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::Offset<void> flatbuffers::Offset<T>::Union() const':
+/usr/local/include/flatbuffers/flatbuffers.h:165:52: error: 'o' was not declared in this scope
+   Offset<void> Union() const { return Offset<void>(o); }
+                                                    ^
+/usr/local/include/flatbuffers/flatbuffers.h: In function 'T flatbuffers::EndianSwap(T)':
+/usr/local/include/flatbuffers/flatbuffers.h:194:10: error: 'r' does not name a type
+     auto r = FLATBUFFERS_BYTESWAP16(*reinterpret_cast<uint16_t *>(&t));
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:195:36: error: 'r' was not declared in this scope
+     return *reinterpret_cast<T *>(&r);
+                                    ^
+/usr/local/include/flatbuffers/flatbuffers.h:197:10: error: 'r' does not name a type
+     auto r = FLATBUFFERS_BYTESWAP32(*reinterpret_cast<uint32_t *>(&t));
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:198:36: error: 'r' was not declared in this scope
+     return *reinterpret_cast<T *>(&r);
+                                    ^
+/usr/local/include/flatbuffers/flatbuffers.h:200:10: error: 'r' does not name a type
+     auto r = FLATBUFFERS_BYTESWAP64(*reinterpret_cast<uint64_t *>(&t));
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:201:36: error: 'r' was not declared in this scope
+     return *reinterpret_cast<T *>(&r);
+                                    ^
+/usr/local/include/flatbuffers/flatbuffers.h: At global scope:
+/usr/local/include/flatbuffers/flatbuffers.h:247:33: error: 'uint8_t' does not name a type
+   static return_type Read(const uint8_t *p, uoffset_t i) {
+                                 ^
+/usr/local/include/flatbuffers/flatbuffers.h:247:45: error: 'uoffset_t' has not been declared
+   static return_type Read(const uint8_t *p, uoffset_t i) {
+                                             ^
+/usr/local/include/flatbuffers/flatbuffers.h:251:52: error: '>>' should be '> >' within a nested template argument list
+ template<typename T> struct IndirectHelper<Offset<T>> {
+                                                    ^
+/usr/local/include/flatbuffers/flatbuffers.h:254:47: error: 'uoffset_t' was not declared in this scope
+   static const size_t element_stride = sizeof(uoffset_t);
+                                               ^
+/usr/local/include/flatbuffers/flatbuffers.h:255:33: error: 'uint8_t' does not name a type
+   static return_type Read(const uint8_t *p, uoffset_t i) {
+                                 ^
+/usr/local/include/flatbuffers/flatbuffers.h:255:45: error: 'uoffset_t' has not been declared
+   static return_type Read(const uint8_t *p, uoffset_t i) {
+                                             ^
+/usr/local/include/flatbuffers/flatbuffers.h: In static member function 'static const T* flatbuffers::IndirectHelper<flatbuffers::Offset<T> >::Read(const int*, int)':
+/usr/local/include/flatbuffers/flatbuffers.h:256:21: error: 'uoffset_t' was not declared in this scope
+     p += i * sizeof(uoffset_t);
+                     ^
+/usr/local/include/flatbuffers/flatbuffers.h:257:69: error: no matching function for call to 'ReadScalar(const int*&)'
+     return reinterpret_cast<return_type>(p + ReadScalar<uoffset_t>(p));
+                                                                     ^
+/usr/local/include/flatbuffers/flatbuffers.h:215:24: note: candidate: template<class T> T flatbuffers::ReadScalar(const void*)
+ template<typename T> T ReadScalar(const void *p) {
+                        ^
+/usr/local/include/flatbuffers/flatbuffers.h:215:24: note:   template argument deduction/substitution failed:
+/usr/local/include/flatbuffers/flatbuffers.h: At global scope:
+/usr/local/include/flatbuffers/flatbuffers.h:264:33: error: 'uint8_t' does not name a type
+   static return_type Read(const uint8_t *p, uoffset_t i) {
+                                 ^
+/usr/local/include/flatbuffers/flatbuffers.h:264:45: error: 'uoffset_t' has not been declared
+   static return_type Read(const uint8_t *p, uoffset_t i) {
+                                             ^
+/usr/local/include/flatbuffers/flatbuffers.h:273:65: error: 'uoffset_t' was not declared in this scope
+     : public std::iterator<std::random_access_iterator_tag, IT, uoffset_t> {
+                                                                 ^
+/usr/local/include/flatbuffers/flatbuffers.h:273:74: error: template argument 3 is invalid
+     : public std::iterator<std::random_access_iterator_tag, IT, uoffset_t> {
+                                                                          ^
+/usr/local/include/flatbuffers/flatbuffers.h:275:62: error: 'uoffset_t' was not declared in this scope
+   typedef std::iterator<std::random_access_iterator_tag, IT, uoffset_t> super_type;
+                                                              ^
+/usr/local/include/flatbuffers/flatbuffers.h:275:71: error: template argument 3 is invalid
+   typedef std::iterator<std::random_access_iterator_tag, IT, uoffset_t> super_type;
+                                                                       ^
+/usr/local/include/flatbuffers/flatbuffers.h:278:24: error: 'uint8_t' does not name a type
+   VectorIterator(const uint8_t *data, uoffset_t i) :
+                        ^
+/usr/local/include/flatbuffers/flatbuffers.h:278:39: error: 'uoffset_t' has not been declared
+   VectorIterator(const uint8_t *data, uoffset_t i) :
+                                       ^
+/usr/local/include/flatbuffers/flatbuffers.h:282:33: error: expected ',' or '...' before '&&' token
+   VectorIterator(VectorIterator &&other) : data_(std::move(other.data_)) {}
+                                 ^
+/usr/local/include/flatbuffers/flatbuffers.h:282:40: error: invalid constructor; you probably meant 'flatbuffers::VectorIterator<T, IT> (const flatbuffers::VectorIterator<T, IT>&)'
+   VectorIterator(VectorIterator &&other) : data_(std::move(other.data_)) {}
+                                        ^
+/usr/local/include/flatbuffers/flatbuffers.h:290:44: error: expected ',' or '...' before '&&' token
+   VectorIterator &operator=(VectorIterator &&other) {
+                                            ^
+/usr/local/include/flatbuffers/flatbuffers.h:307:12: error: 'super_type' is not a class or namespace
+   typename super_type::value_type operator *() const {
+            ^
+/usr/local/include/flatbuffers/flatbuffers.h:311:12: error: 'super_type' is not a class or namespace
+   typename super_type::value_type operator->() const {
+            ^
+/usr/local/include/flatbuffers/flatbuffers.h:326:34: error: 'uoffset_t' does not name a type
+   VectorIterator operator+(const uoffset_t &offset) {
+                                  ^
+/usr/local/include/flatbuffers/flatbuffers.h:330:36: error: 'uoffset_t' does not name a type
+   VectorIterator& operator+=(const uoffset_t &offset) {
+                                    ^
+/usr/local/include/flatbuffers/flatbuffers.h:346:34: error: 'uoffset_t' does not name a type
+   VectorIterator operator-(const uoffset_t &offset) {
+                                  ^
+/usr/local/include/flatbuffers/flatbuffers.h:350:36: error: 'uoffset_t' does not name a type
+   VectorIterator& operator-=(const uoffset_t &offset) {
+                                    ^
+/usr/local/include/flatbuffers/flatbuffers.h:356:9: error: 'uint8_t' does not name a type
+   const uint8_t *data_;
+         ^
+/usr/local/include/flatbuffers/flatbuffers.h: In constructor 'flatbuffers::VectorIterator<T, IT>::VectorIterator(const int*, int)':
+/usr/local/include/flatbuffers/flatbuffers.h:279:7: error: class 'flatbuffers::VectorIterator<T, IT>' does not have any field named 'data_'
+       data_(data + IndirectHelper<T>::element_stride * i) {}
+       ^
+/usr/local/include/flatbuffers/flatbuffers.h: In copy constructor 'flatbuffers::VectorIterator<T, IT>::VectorIterator(const flatbuffers::VectorIterator<T, IT>&)':
+/usr/local/include/flatbuffers/flatbuffers.h:280:49: error: class 'flatbuffers::VectorIterator<T, IT>' does not have any field named 'data_'
+   VectorIterator(const VectorIterator &other) : data_(other.data_) {}
+                                                 ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::VectorIterator<T, IT>& flatbuffers::VectorIterator<T, IT>::operator=(const flatbuffers::VectorIterator<T, IT>&)':
+/usr/local/include/flatbuffers/flatbuffers.h:286:5: error: 'data_' was not declared in this scope
+     data_ = other.data_;
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::VectorIterator<T, IT>& flatbuffers::VectorIterator<T, IT>::operator=(flatbuffers::VectorIterator<T, IT>)':
+/usr/local/include/flatbuffers/flatbuffers.h:291:5: error: 'data_' was not declared in this scope
+     data_ = other.data_;
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h:291:13: error: 'other' was not declared in this scope
+     data_ = other.data_;
+             ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'bool flatbuffers::VectorIterator<T, IT>::operator==(const flatbuffers::VectorIterator<T, IT>&) const':
+/usr/local/include/flatbuffers/flatbuffers.h:296:12: error: 'data_' was not declared in this scope
+     return data_ == other.data_;
+            ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'bool flatbuffers::VectorIterator<T, IT>::operator!=(const flatbuffers::VectorIterator<T, IT>&) const':
+/usr/local/include/flatbuffers/flatbuffers.h:300:12: error: 'data_' was not declared in this scope
+     return data_ != other.data_;
+            ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'ptrdiff_t flatbuffers::VectorIterator<T, IT>::operator-(const flatbuffers::VectorIterator<T, IT>&) const':
+/usr/local/include/flatbuffers/flatbuffers.h:304:13: error: 'data_' was not declared in this scope
+     return (data_ - other.data_) / IndirectHelper<T>::element_stride;
+             ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'int flatbuffers::VectorIterator<T, IT>::operator*() const':
+/usr/local/include/flatbuffers/flatbuffers.h:308:36: error: 'data_' was not declared in this scope
+     return IndirectHelper<T>::Read(data_, 0);
+                                    ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'int flatbuffers::VectorIterator<T, IT>::operator->() const':
+/usr/local/include/flatbuffers/flatbuffers.h:312:36: error: 'data_' was not declared in this scope
+     return IndirectHelper<T>::Read(data_, 0);
+                                    ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::VectorIterator<T, IT>& flatbuffers::VectorIterator<T, IT>::operator++()':
+/usr/local/include/flatbuffers/flatbuffers.h:316:5: error: 'data_' was not declared in this scope
+     data_ += IndirectHelper<T>::element_stride;
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::VectorIterator<T, IT> flatbuffers::VectorIterator<T, IT>::operator++(int)':
+/usr/local/include/flatbuffers/flatbuffers.h:321:25: error: 'data_' was not declared in this scope
+     VectorIterator temp(data_, 0);
+                         ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::VectorIterator<T, IT> flatbuffers::VectorIterator<T, IT>::operator+(const int&)':
+/usr/local/include/flatbuffers/flatbuffers.h:327:27: error: 'data_' was not declared in this scope
+     return VectorIterator(data_ + offset * IndirectHelper<T>::element_stride, 0);
+                           ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::VectorIterator<T, IT>& flatbuffers::VectorIterator<T, IT>::operator+=(const int&)':
+/usr/local/include/flatbuffers/flatbuffers.h:331:5: error: 'data_' was not declared in this scope
+     data_ += offset * IndirectHelper<T>::element_stride;
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::VectorIterator<T, IT>& flatbuffers::VectorIterator<T, IT>::operator--()':
+/usr/local/include/flatbuffers/flatbuffers.h:336:5: error: 'data_' was not declared in this scope
+     data_ -= IndirectHelper<T>::element_stride;
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::VectorIterator<T, IT> flatbuffers::VectorIterator<T, IT>::operator--(int)':
+/usr/local/include/flatbuffers/flatbuffers.h:341:25: error: 'data_' was not declared in this scope
+     VectorIterator temp(data_, 0);
+                         ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::VectorIterator<T, IT> flatbuffers::VectorIterator<T, IT>::operator-(const int&)':
+/usr/local/include/flatbuffers/flatbuffers.h:347:27: error: 'data_' was not declared in this scope
+     return VectorIterator(data_ - offset * IndirectHelper<T>::element_stride, 0);
+                           ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::VectorIterator<T, IT>& flatbuffers::VectorIterator<T, IT>::operator-=(const int&)':
+/usr/local/include/flatbuffers/flatbuffers.h:351:5: error: 'data_' was not declared in this scope
+     data_ -= offset * IndirectHelper<T>::element_stride;
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h: At global scope:
+/usr/local/include/flatbuffers/flatbuffers.h:368:3: error: 'uoffset_t' does not name a type
+   uoffset_t size() const { return EndianScalar(length_); }
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:371:3: error: 'uoffset_t' does not name a type
+   uoffset_t Length() const { return size(); }
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:376:19: error: 'uoffset_t' has not been declared
+   return_type Get(uoffset_t i) const {
+                   ^
+/usr/local/include/flatbuffers/flatbuffers.h:381:26: error: 'uoffset_t' has not been declared
+   return_type operator[](uoffset_t i) const { return Get(i); }
+                          ^
+/usr/local/include/flatbuffers/flatbuffers.h:386:34: error: 'uoffset_t' has not been declared
+   template<typename E> E GetEnum(uoffset_t i) const {
+                                  ^
+/usr/local/include/flatbuffers/flatbuffers.h:402:15: error: 'uoffset_t' has not been declared
+   void Mutate(uoffset_t i, const T& val) {
+               ^
+/usr/local/include/flatbuffers/flatbuffers.h:410:21: error: 'uoffset_t' has not been declared
+   void MutateOffset(uoffset_t i, const uint8_t *val) {
+                     ^
+/usr/local/include/flatbuffers/flatbuffers.h:410:40: error: 'uint8_t' does not name a type
+   void MutateOffset(uoffset_t i, const uint8_t *val) {
+                                        ^
+/usr/local/include/flatbuffers/flatbuffers.h:418:40: error: 'uoffset_t' has not been declared
+   mutable_return_type GetMutableObject(uoffset_t i) const {
+                                        ^
+/usr/local/include/flatbuffers/flatbuffers.h:424:9: error: 'uint8_t' does not name a type
+   const uint8_t *Data() const {
+         ^
+/usr/local/include/flatbuffers/flatbuffers.h:428:3: error: 'uint8_t' does not name a type
+   uint8_t *Data() {
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:454:3: error: 'uoffset_t' does not name a type
+   uoffset_t length_;
+   ^
+In file included from /usr/local/include/flatbuffers/flatbuffers.h:20:0,
+                 from sample_generated.h:7,
+                 from test.cpp:1:
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::Vector<T>::return_type flatbuffers::Vector<T>::Get(int) const':
+/usr/local/include/flatbuffers/flatbuffers.h:377:5: error: there are no arguments to 'size' that depend on a template parameter, so a declaration of 'size' must be available [-fpermissive]
+     assert(i < size());
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h:377:5: note: (if you use '-fpermissive', G++ will accept your code, but allowing the use of an undeclared name is deprecated)
+In file included from sample_generated.h:7:0,
+                 from test.cpp:1:
+/usr/local/include/flatbuffers/flatbuffers.h:378:41: error: there are no arguments to 'Data' that depend on a template parameter, so a declaration of 'Data' must be available [-fpermissive]
+     return IndirectHelper<T>::Read(Data(), i);
+                                         ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'const void* flatbuffers::Vector<T>::GetStructFromOffset(size_t) const':
+/usr/local/include/flatbuffers/flatbuffers.h:391:48: error: there are no arguments to 'Data' that depend on a template parameter, so a declaration of 'Data' must be available [-fpermissive]
+     return reinterpret_cast<const void *>(Data() + o);
+                                                ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::Vector<T>::iterator flatbuffers::Vector<T>::begin()':
+/usr/local/include/flatbuffers/flatbuffers.h:394:43: error: there are no arguments to 'Data' that depend on a template parameter, so a declaration of 'Data' must be available [-fpermissive]
+   iterator begin() { return iterator(Data(), 0); }
+                                           ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::Vector<T>::const_iterator flatbuffers::Vector<T>::begin() const':
+/usr/local/include/flatbuffers/flatbuffers.h:395:61: error: there are no arguments to 'Data' that depend on a template parameter, so a declaration of 'Data' must be available [-fpermissive]
+   const_iterator begin() const { return const_iterator(Data(), 0); }
+                                                             ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::Vector<T>::iterator flatbuffers::Vector<T>::end()':
+/usr/local/include/flatbuffers/flatbuffers.h:397:41: error: there are no arguments to 'Data' that depend on a template parameter, so a declaration of 'Data' must be available [-fpermissive]
+   iterator end() { return iterator(Data(), size()); }
+                                         ^
+/usr/local/include/flatbuffers/flatbuffers.h:397:49: error: there are no arguments to 'size' that depend on a template parameter, so a declaration of 'size' must be available [-fpermissive]
+   iterator end() { return iterator(Data(), size()); }
+                                                 ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::Vector<T>::const_iterator flatbuffers::Vector<T>::end() const':
+/usr/local/include/flatbuffers/flatbuffers.h:398:59: error: there are no arguments to 'Data' that depend on a template parameter, so a declaration of 'Data' must be available [-fpermissive]
+   const_iterator end() const { return const_iterator(Data(), size()); }
+                                                           ^
+/usr/local/include/flatbuffers/flatbuffers.h:398:67: error: there are no arguments to 'size' that depend on a template parameter, so a declaration of 'size' must be available [-fpermissive]
+   const_iterator end() const { return const_iterator(Data(), size()); }
+                                                                   ^
+In file included from /usr/local/include/flatbuffers/flatbuffers.h:20:0,
+                 from sample_generated.h:7,
+                 from test.cpp:1:
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::Vector<T>::Mutate(int, const T&)':
+/usr/local/include/flatbuffers/flatbuffers.h:403:5: error: there are no arguments to 'size' that depend on a template parameter, so a declaration of 'size' must be available [-fpermissive]
+     assert(i < size());
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::Vector<T>::MutateOffset(int, const int*)':
+/usr/local/include/flatbuffers/flatbuffers.h:411:5: error: there are no arguments to 'size' that depend on a template parameter, so a declaration of 'size' must be available [-fpermissive]
+     assert(i < size());
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h:412:5: error: 'uoffset_t' was not declared in this scope
+     assert(sizeof(T) == sizeof(uoffset_t));
+     ^
+In file included from sample_generated.h:7:0,
+                 from test.cpp:1:
+/usr/local/include/flatbuffers/flatbuffers.h:414:29: error: 'uoffset_t' does not name a type
+                 static_cast<uoffset_t>(val - (Data() + i * sizeof(uoffset_t))));
+                             ^
+/usr/local/include/flatbuffers/flatbuffers.h:414:52: error: there are no arguments to 'Data' that depend on a template parameter, so a declaration of 'Data' must be available [-fpermissive]
+                 static_cast<uoffset_t>(val - (Data() + i * sizeof(uoffset_t))));
+                                                    ^
+In file included from /usr/local/include/flatbuffers/flatbuffers.h:20:0,
+                 from sample_generated.h:7,
+                 from test.cpp:1:
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::Vector<T>::mutable_return_type flatbuffers::Vector<T>::GetMutableObject(int) const':
+/usr/local/include/flatbuffers/flatbuffers.h:419:5: error: there are no arguments to 'size' that depend on a template parameter, so a declaration of 'size' must be available [-fpermissive]
+     assert(i < size());
+     ^
+In file included from sample_generated.h:7:0,
+                 from test.cpp:1:
+/usr/local/include/flatbuffers/flatbuffers.h:420:73: error: there are no arguments to 'Data' that depend on a template parameter, so a declaration of 'Data' must be available [-fpermissive]
+     return const_cast<mutable_return_type>(IndirectHelper<T>::Read(Data(), i));
+                                                                         ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'const T* flatbuffers::Vector<T>::data() const':
+/usr/local/include/flatbuffers/flatbuffers.h:433:67: error: there are no arguments to 'Data' that depend on a template parameter, so a declaration of 'Data' must be available [-fpermissive]
+   const T *data() const { return reinterpret_cast<const T *>(Data()); }
+                                                                   ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'T* flatbuffers::Vector<T>::data()':
+/usr/local/include/flatbuffers/flatbuffers.h:434:49: error: there are no arguments to 'Data' that depend on a template parameter, so a declaration of 'Data' must be available [-fpermissive]
+   T *data() { return reinterpret_cast<T *>(Data()); }
+                                                 ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::Vector<T>::return_type flatbuffers::Vector<T>::LookupByKey(K) const':
+/usr/local/include/flatbuffers/flatbuffers.h:437:51: error: there are no arguments to 'Data' that depend on a template parameter, so a declaration of 'Data' must be available [-fpermissive]
+     void *search_result = std::bsearch(&key, Data(), size(),
+                                                   ^
+/usr/local/include/flatbuffers/flatbuffers.h:437:59: error: there are no arguments to 'size' that depend on a template parameter, so a declaration of 'size' must be available [-fpermissive]
+     void *search_result = std::bsearch(&key, Data(), size(),
+                                                           ^
+/usr/local/include/flatbuffers/flatbuffers.h:441:14: error: 'nullptr' was not declared in this scope
+       return nullptr;  // Key not found.
+              ^
+/usr/local/include/flatbuffers/flatbuffers.h:444:11: error: 'uint8_t' does not name a type
+     const uint8_t *element = reinterpret_cast<const uint8_t *>(search_result);
+           ^
+/usr/local/include/flatbuffers/flatbuffers.h:446:36: error: 'element' was not declared in this scope
+     return IndirectHelper<T>::Read(element, 0);
+                                    ^
+/usr/local/include/flatbuffers/flatbuffers.h: In static member function 'static int flatbuffers::Vector<T>::KeyCompare(const void*, const void*)':
+/usr/local/include/flatbuffers/flatbuffers.h:463:11: error: 'uint8_t' does not name a type
+     const uint8_t *data = reinterpret_cast<const uint8_t *>(bp);
+           ^
+/usr/local/include/flatbuffers/flatbuffers.h:464:10: error: 'table' does not name a type
+     auto table = IndirectHelper<T>::Read(data, 0);
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:468:13: error: 'table' was not declared in this scope
+     return -table->KeyCompareWithValue(*key);
+             ^
+/usr/local/include/flatbuffers/flatbuffers.h: At global scope:
+/usr/local/include/flatbuffers/flatbuffers.h:476:3: error: 'uoffset_t' does not name a type
+   uoffset_t size() const { return EndianScalar(length_); }
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:478:9: error: 'uint8_t' does not name a type
+   const uint8_t *Data() const {
+         ^
+/usr/local/include/flatbuffers/flatbuffers.h:481:3: error: 'uint8_t' does not name a type
+   uint8_t *Data() {
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:487:3: error: 'uoffset_t' does not name a type
+   uoffset_t length_;
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:495:16: error: '>>' should be '> >' within a nested template argument list
+ Vector<Offset<T>> *VectorCast(Vector<Offset<U>> *ptr) {
+                ^
+/usr/local/include/flatbuffers/flatbuffers.h:495:46: error: '>>' should be '> >' within a nested template argument list
+ Vector<Offset<T>> *VectorCast(Vector<Offset<U>> *ptr) {
+                                              ^
+/usr/local/include/flatbuffers/flatbuffers.h: In function 'flatbuffers::Vector<flatbuffers::Offset<T> >* flatbuffers::VectorCast(flatbuffers::Vector<flatbuffers::Offset<U> >*)':
+/usr/local/include/flatbuffers/flatbuffers.h:496:17: error: 'is_base_of' is not a member of 'std'
+   static_assert(std::is_base_of<T, U>::value, "Unrelated types");
+                 ^
+/usr/local/include/flatbuffers/flatbuffers.h:496:34: error: expected primary-expression before ',' token
+   static_assert(std::is_base_of<T, U>::value, "Unrelated types");
+                                  ^
+/usr/local/include/flatbuffers/flatbuffers.h:496:37: error: expected primary-expression before '>' token
+   static_assert(std::is_base_of<T, U>::value, "Unrelated types");
+                                     ^
+/usr/local/include/flatbuffers/flatbuffers.h:496:38: error: '::value' has not been declared
+   static_assert(std::is_base_of<T, U>::value, "Unrelated types");
+                                      ^
+/usr/local/include/flatbuffers/flatbuffers.h:496:64: error: there are no arguments to 'static_assert' that depend on a template parameter, so a declaration of 'static_assert' must be available [-fpermissive]
+   static_assert(std::is_base_of<T, U>::value, "Unrelated types");
+                                                                ^
+/usr/local/include/flatbuffers/flatbuffers.h:497:42: error: '>>' should be '> >' within a nested template argument list
+   return reinterpret_cast<Vector<Offset<T>> *>(ptr);
+                                          ^
+/usr/local/include/flatbuffers/flatbuffers.h: At global scope:
+/usr/local/include/flatbuffers/flatbuffers.h:501:22: error: '>>' should be '> >' within a nested template argument list
+ const Vector<Offset<T>> *VectorCast(const Vector<Offset<U>> *ptr) {
+                      ^
+/usr/local/include/flatbuffers/flatbuffers.h:501:58: error: '>>' should be '> >' within a nested template argument list
+ const Vector<Offset<T>> *VectorCast(const Vector<Offset<U>> *ptr) {
+                                                          ^
+/usr/local/include/flatbuffers/flatbuffers.h: In function 'const flatbuffers::Vector<flatbuffers::Offset<T> >* flatbuffers::VectorCast(const flatbuffers::Vector<flatbuffers::Offset<U> >*)':
+/usr/local/include/flatbuffers/flatbuffers.h:502:17: error: 'is_base_of' is not a member of 'std'
+   static_assert(std::is_base_of<T, U>::value, "Unrelated types");
+                 ^
+/usr/local/include/flatbuffers/flatbuffers.h:502:34: error: expected primary-expression before ',' token
+   static_assert(std::is_base_of<T, U>::value, "Unrelated types");
+                                  ^
+/usr/local/include/flatbuffers/flatbuffers.h:502:37: error: expected primary-expression before '>' token
+   static_assert(std::is_base_of<T, U>::value, "Unrelated types");
+                                     ^
+/usr/local/include/flatbuffers/flatbuffers.h:502:38: error: '::value' has not been declared
+   static_assert(std::is_base_of<T, U>::value, "Unrelated types");
+                                      ^
+/usr/local/include/flatbuffers/flatbuffers.h:502:64: error: there are no arguments to 'static_assert' that depend on a template parameter, so a declaration of 'static_assert' must be available [-fpermissive]
+   static_assert(std::is_base_of<T, U>::value, "Unrelated types");
+                                                                ^
+/usr/local/include/flatbuffers/flatbuffers.h:503:48: error: '>>' should be '> >' within a nested template argument list
+   return reinterpret_cast<const Vector<Offset<T>> *>(ptr);
+                                                ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'const char* flatbuffers::String::c_str() const':
+/usr/local/include/flatbuffers/flatbuffers.h:514:74: error: 'Data' was not declared in this scope
+   const char *c_str() const { return reinterpret_cast<const char *>(Data()); }
+                                                                          ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'std::__cxx11::string flatbuffers::String::str() const':
+/usr/local/include/flatbuffers/flatbuffers.h:515:64: error: 'Length' was not declared in this scope
+   std::string str() const { return std::string(c_str(), Length()); }
+                                                                ^
+/usr/local/include/flatbuffers/flatbuffers.h: At global scope:
+/usr/local/include/flatbuffers/flatbuffers.h:527:11: error: 'uint8_t' does not name a type
+   virtual uint8_t *allocate(size_t size) const { return new uint8_t[size]; }
+           ^
+/usr/local/include/flatbuffers/flatbuffers.h:528:27: error: 'uint8_t' has not been declared
+   virtual void deallocate(uint8_t *p) const { delete[] p; }
+                           ^
+/usr/local/include/flatbuffers/flatbuffers.h:558:3: error: 'unique_ptr_t' does not name a type
+   unique_ptr_t release() {
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:578:3: error: 'uint8_t' does not name a type
+   uint8_t *make_space(size_t len) {
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:589:3: error: 'uoffset_t' does not name a type
+   uoffset_t size() const {
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:594:3: error: 'uint8_t' does not name a type
+   uint8_t *data() const {
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:599:3: error: 'uint8_t' does not name a type
+   uint8_t *data_at(size_t offset) const { return buf_ + reserved_ - offset; }
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:601:19: error: 'uint8_t' does not name a type
+   void push(const uint8_t *bytes, size_t num) {
+                   ^
+/usr/local/include/flatbuffers/flatbuffers.h:633:3: error: 'uint8_t' does not name a type
+   uint8_t *buf_;
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:634:3: error: 'uint8_t' does not name a type
+   uint8_t *cur_;  // Points at location between empty (below) and used (above).
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h: In constructor 'flatbuffers::vector_downward::vector_downward(size_t, const flatbuffers::simple_allocator&)':
+/usr/local/include/flatbuffers/flatbuffers.h:538:40: error: 'largest_scalar_t' was not declared in this scope
+     : reserved_((initial_size + sizeof(largest_scalar_t) - 1) &
+                                        ^
+/usr/local/include/flatbuffers/flatbuffers.h:540:7: error: class 'flatbuffers::vector_downward' does not have any field named 'buf_'
+       buf_(allocator.allocate(reserved_)),
+       ^
+/usr/local/include/flatbuffers/flatbuffers.h:540:22: error: 'const class flatbuffers::simple_allocator' has no member named 'allocate'
+       buf_(allocator.allocate(reserved_)),
+                      ^
+/usr/local/include/flatbuffers/flatbuffers.h:541:7: error: class 'flatbuffers::vector_downward' does not have any field named 'cur_'
+       cur_(buf_ + reserved_),
+       ^
+/usr/local/include/flatbuffers/flatbuffers.h:541:12: error: 'buf_' was not declared in this scope
+       cur_(buf_ + reserved_),
+            ^
+/usr/local/include/flatbuffers/flatbuffers.h: In destructor 'flatbuffers::vector_downward::~vector_downward()':
+/usr/local/include/flatbuffers/flatbuffers.h:545:9: error: 'buf_' was not declared in this scope
+     if (buf_)
+         ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::vector_downward::clear()':
+/usr/local/include/flatbuffers/flatbuffers.h:550:9: error: 'buf_' was not declared in this scope
+     if (buf_ == nullptr)
+         ^
+/usr/local/include/flatbuffers/flatbuffers.h:550:17: error: 'nullptr' was not declared in this scope
+     if (buf_ == nullptr)
+                 ^
+/usr/local/include/flatbuffers/flatbuffers.h:551:25: error: 'const class flatbuffers::simple_allocator' has no member named 'allocate'
+       buf_ = allocator_.allocate(reserved_);
+                         ^
+/usr/local/include/flatbuffers/flatbuffers.h:553:5: error: 'cur_' was not declared in this scope
+     cur_ = buf_ + reserved_;
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h:553:12: error: 'buf_' was not declared in this scope
+     cur_ = buf_ + reserved_;
+            ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'size_t flatbuffers::vector_downward::growth_policy(size_t)':
+/usr/local/include/flatbuffers/flatbuffers.h:575:35: error: 'largest_scalar_t' was not declared in this scope
+     return (bytes / 2) & ~(sizeof(largest_scalar_t) - 1);
+                                   ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::vector_downward::push(const int*, size_t)':
+/usr/local/include/flatbuffers/flatbuffers.h:602:10: error: 'dest' does not name a type
+     auto dest = make_space(num);
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:603:12: error: 'dest' was not declared in this scope
+     memcpy(dest, bytes, num);
+            ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::vector_downward::push_small(const T&)':
+/usr/local/include/flatbuffers/flatbuffers.h:608:10: error: 'dest' does not name a type
+     auto dest = make_space(sizeof(T));
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:609:28: error: 'dest' was not declared in this scope
+     *reinterpret_cast<T *>(dest) = little_endian_t;
+                            ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::vector_downward::fill(size_t)':
+/usr/local/include/flatbuffers/flatbuffers.h:615:10: error: 'dest' does not name a type
+     auto dest = make_space(zero_pad_bytes);
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:616:49: error: 'dest' was not declared in this scope
+     for (size_t i = 0; i < zero_pad_bytes; i++) dest[i] = 0;
+                                                 ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::vector_downward::fill_big(size_t)':
+/usr/local/include/flatbuffers/flatbuffers.h:621:10: error: 'dest' does not name a type
+     auto dest = make_space(zero_pad_bytes);
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:622:12: error: 'dest' was not declared in this scope
+     memset(dest, 0, zero_pad_bytes);
+            ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::vector_downward::pop(size_t)':
+/usr/local/include/flatbuffers/flatbuffers.h:625:38: error: 'cur_' was not declared in this scope
+   void pop(size_t bytes_to_remove) { cur_ += bytes_to_remove; }
+                                      ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::vector_downward::reallocate(size_t)':
+/usr/local/include/flatbuffers/flatbuffers.h:638:10: error: 'old_size' does not name a type
+     auto old_size = size();
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:639:10: error: 'largest_align' does not name a type
+     auto largest_align = AlignOf<largest_scalar_t>();
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:642:31: error: 'largest_align' was not declared in this scope
+     reserved_ = (reserved_ + (largest_align - 1)) & ~(largest_align - 1);
+                               ^
+/usr/local/include/flatbuffers/flatbuffers.h:643:10: error: 'new_buf' does not name a type
+     auto new_buf = allocator_.allocate(reserved_);
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:644:10: error: 'new_cur' does not name a type
+     auto new_cur = new_buf + reserved_ - old_size;
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:645:12: error: 'new_cur' was not declared in this scope
+     memcpy(new_cur, cur_, old_size);
+            ^
+/usr/local/include/flatbuffers/flatbuffers.h:645:21: error: 'cur_' was not declared in this scope
+     memcpy(new_cur, cur_, old_size);
+                     ^
+/usr/local/include/flatbuffers/flatbuffers.h:645:27: error: 'old_size' was not declared in this scope
+     memcpy(new_cur, cur_, old_size);
+                           ^
+/usr/local/include/flatbuffers/flatbuffers.h:647:27: error: 'buf_' was not declared in this scope
+     allocator_.deallocate(buf_);
+                           ^
+/usr/local/include/flatbuffers/flatbuffers.h:648:12: error: 'new_buf' was not declared in this scope
+     buf_ = new_buf;
+            ^
+/usr/local/include/flatbuffers/flatbuffers.h: At global scope:
+/usr/local/include/flatbuffers/flatbuffers.h:653:8: error: 'voffset_t' does not name a type
+ inline voffset_t FieldIndexToOffset(voffset_t field_id) {
+        ^
+/usr/local/include/flatbuffers/flatbuffers.h: In function 'const T* flatbuffers::data(const std::vector<T>&)':
+/usr/local/include/flatbuffers/flatbuffers.h:667:22: error: 'nullptr' was not declared in this scope
+   return v.empty() ? nullptr : &v.front();
+                      ^
+/usr/local/include/flatbuffers/flatbuffers.h: In function 'T* flatbuffers::data(std::vector<T>&)':
+/usr/local/include/flatbuffers/flatbuffers.h:670:22: error: 'nullptr' was not declared in this scope
+   return v.empty() ? nullptr : &v.front();
+                      ^
+/usr/local/include/flatbuffers/flatbuffers.h: At global scope:
+/usr/local/include/flatbuffers/flatbuffers.h:696:40: error: expected ')' before 'initial_size'
+   explicit FlatBufferBuilder(uoffset_t initial_size = 1024,
+                                        ^
+/usr/local/include/flatbuffers/flatbuffers.h:724:3: error: 'uoffset_t' does not name a type
+   uoffset_t GetSize() const { return buf_.size(); }
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:729:3: error: 'uint8_t' does not name a type
+   uint8_t *GetBufferPointer() const {
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:736:3: error: 'uint8_t' does not name a type
+   uint8_t *GetCurrentBufferPointer() const { return buf_.data(); }
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:745:3: error: 'unique_ptr_t' does not name a type
+   unique_ptr_t ReleaseBufferPointer() {
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:789:29: error: 'uint8_t' does not name a type
+   void PushFlatBuffer(const uint8_t *bytes, size_t size) {
+                             ^
+/usr/local/include/flatbuffers/flatbuffers.h:794:24: error: 'uint8_t' does not name a type
+   void PushBytes(const uint8_t *bytes, size_t size) {
+                        ^
+/usr/local/include/flatbuffers/flatbuffers.h:811:24: error: 'uoffset_t' does not name a type
+   template<typename T> uoffset_t PushElement(T element) {
+                        ^
+/usr/local/include/flatbuffers/flatbuffers.h:819:24: error: 'uoffset_t' does not name a type
+   template<typename T> uoffset_t PushElement(Offset<T> off) {
+                        ^
+/usr/local/include/flatbuffers/flatbuffers.h:826:19: error: 'voffset_t' has not been declared
+   void TrackField(voffset_t field, uoffset_t off) {
+                   ^
+/usr/local/include/flatbuffers/flatbuffers.h:826:36: error: 'uoffset_t' has not been declared
+   void TrackField(voffset_t field, uoffset_t off) {
+                                    ^
+/usr/local/include/flatbuffers/flatbuffers.h:832:40: error: 'voffset_t' has not been declared
+   template<typename T> void AddElement(voffset_t field, T e, T def) {
+                                        ^
+/usr/local/include/flatbuffers/flatbuffers.h:839:39: error: 'voffset_t' has not been declared
+   template<typename T> void AddOffset(voffset_t field, Offset<T> off) {
+                                       ^
+/usr/local/include/flatbuffers/flatbuffers.h:844:39: error: 'voffset_t' has not been declared
+   template<typename T> void AddStruct(voffset_t field, const T *structptr) {
+                                       ^
+/usr/local/include/flatbuffers/flatbuffers.h:851:24: error: 'voffset_t' has not been declared
+   void AddStructOffset(voffset_t field, uoffset_t off) {
+                        ^
+/usr/local/include/flatbuffers/flatbuffers.h:851:41: error: 'uoffset_t' has not been declared
+   void AddStructOffset(voffset_t field, uoffset_t off) {
+                                         ^
+/usr/local/include/flatbuffers/flatbuffers.h:858:3: error: 'uoffset_t' does not name a type
+   uoffset_t ReferTo(uoffset_t off) {
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:880:3: error: 'uoffset_t' does not name a type
+   uoffset_t StartTable() {
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:889:3: error: 'uoffset_t' does not name a type
+   uoffset_t EndTable(uoffset_t start, voffset_t numfields) {
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:947:55: error: 'voffset_t' has not been declared
+   template<typename T> void Required(Offset<T> table, voffset_t field) {
+                                                       ^
+/usr/local/include/flatbuffers/flatbuffers.h:956:3: error: 'uoffset_t' does not name a type
+   uoffset_t StartStruct(size_t alignment) {
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:961:3: error: 'uoffset_t' does not name a type
+   uoffset_t EndStruct() { return GetSize(); }
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:1072:3: error: 'uoffset_t' does not name a type
+   uoffset_t EndVector(size_t len) {
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:1094:3: error: 'uint8_t' does not name a type
+   uint8_t *ReserveElements(size_t len, size_t elemsize) {
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:1106:39: error: '>>' should be '> >' within a nested template argument list
+   template<typename T> Offset<Vector<T>> CreateVector(const T *v, size_t len) {
+                                       ^
+/usr/local/include/flatbuffers/flatbuffers.h:1124:39: error: '>>' should be '> >' within a nested template argument list
+   template<typename T> Offset<Vector<T>> CreateVector(const std::vector<T> &v) {
+                                       ^
+/usr/local/include/flatbuffers/flatbuffers.h:1131:17: error: 'uint8_t' was not declared in this scope
+   Offset<Vector<uint8_t>> CreateVector(const std::vector<bool> &v) {
+                 ^
+/usr/local/include/flatbuffers/flatbuffers.h:1131:27: error: 'flatbuffers::FlatBufferBuilder::CreateVector' cannot appear in a constant-expression
+   Offset<Vector<uint8_t>> CreateVector(const std::vector<bool> &v) {
+                           ^
+/usr/local/include/flatbuffers/flatbuffers.h:1131:66: error: a function call cannot appear in a constant-expression
+   Offset<Vector<uint8_t>> CreateVector(const std::vector<bool> &v) {
+                                                                  ^
+/usr/local/include/flatbuffers/flatbuffers.h:1131:66: error: template argument 1 is invalid
+/usr/local/include/flatbuffers/flatbuffers.h:1132:17: error: 'v' was not declared in this scope
+     StartVector(v.size(), sizeof(uint8_t));
+                 ^
+/usr/local/include/flatbuffers/flatbuffers.h:1132:34: error: 'uint8_t' was not declared in this scope
+     StartVector(v.size(), sizeof(uint8_t));
+                                  ^
+/usr/local/include/flatbuffers/flatbuffers.h:1131:10: error: template argument 1 is invalid
+   Offset<Vector<uint8_t>> CreateVector(const std::vector<bool> &v) {
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:1131:68: error: expected unqualified-id before '{' token
+   Offset<Vector<uint8_t>> CreateVector(const std::vector<bool> &v) {
+                                                                    ^
+test.cpp:4:1: error: expected '}' at end of input
+ }
+ ^
+In file included from sample_generated.h:7:0,
+                 from test.cpp:1:
+/usr/local/include/flatbuffers/flatbuffers.h: In destructor 'flatbuffers::FlatBufferBuilder::~FlatBufferBuilder()':
+/usr/local/include/flatbuffers/flatbuffers.h:707:9: error: 'string_pool' was not declared in this scope
+     if (string_pool) delete string_pool;
+         ^
+/usr/local/include/flatbuffers/flatbuffers.h:707:29: error: type '<type error>' argument given to 'delete', expected pointer
+     if (string_pool) delete string_pool;
+                             ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::FlatBufferBuilder::Clear()':
+/usr/local/include/flatbuffers/flatbuffers.h:713:5: error: 'buf_' was not declared in this scope
+     buf_.clear();
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h:714:5: error: 'offsetbuf_' was not declared in this scope
+     offsetbuf_.clear();
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h:715:5: error: 'nested' was not declared in this scope
+     nested = false;
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h:716:5: error: 'finished' was not declared in this scope
+     finished = false;
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h:717:5: error: 'vtables_' was not declared in this scope
+     vtables_.clear();
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h:718:5: error: 'minalign_' was not declared in this scope
+     minalign_ = 1;
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h:719:9: error: 'string_pool' was not declared in this scope
+     if (string_pool) string_pool->clear();
+         ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'size_t flatbuffers::FlatBufferBuilder::GetBufferMinAlignment()':
+/usr/local/include/flatbuffers/flatbuffers.h:758:12: error: 'minalign_' was not declared in this scope
+     return minalign_;
+            ^
+In file included from /usr/local/include/flatbuffers/flatbuffers.h:20:0,
+                 from sample_generated.h:7,
+                 from test.cpp:1:
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::FlatBufferBuilder::Finished() const':
+/usr/local/include/flatbuffers/flatbuffers.h:768:5: error: 'finished' was not declared in this scope
+     assert(finished);
+     ^
+In file included from sample_generated.h:7:0,
+                 from test.cpp:1:
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::FlatBufferBuilder::ForceDefaults(bool)':
+/usr/local/include/flatbuffers/flatbuffers.h:775:33: error: 'force_defaults_' was not declared in this scope
+   void ForceDefaults(bool fd) { force_defaults_ = fd; }
+                                 ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::FlatBufferBuilder::DedupVtables(bool)':
+/usr/local/include/flatbuffers/flatbuffers.h:779:35: error: 'dedup_vtables_' was not declared in this scope
+   void DedupVtables(bool dedup) { dedup_vtables_ = dedup; }
+                                   ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::FlatBufferBuilder::Pad(size_t)':
+/usr/local/include/flatbuffers/flatbuffers.h:782:32: error: 'buf_' was not declared in this scope
+   void Pad(size_t num_bytes) { buf_.fill(num_bytes); }
+                                ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::FlatBufferBuilder::Align(size_t)':
+/usr/local/include/flatbuffers/flatbuffers.h:785:21: error: 'minalign_' was not declared in this scope
+     if (elem_size > minalign_) minalign_ = elem_size;
+                     ^
+/usr/local/include/flatbuffers/flatbuffers.h:786:5: error: 'buf_' was not declared in this scope
+     buf_.fill(PaddingBytes(buf_.size(), elem_size));
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::FlatBufferBuilder::PushFlatBuffer(const int*, size_t)':
+/usr/local/include/flatbuffers/flatbuffers.h:791:5: error: 'finished' was not declared in this scope
+     finished = true;
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::FlatBufferBuilder::PushBytes(const int*, size_t)':
+/usr/local/include/flatbuffers/flatbuffers.h:795:5: error: 'buf_' was not declared in this scope
+     buf_.push(bytes, size);
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::FlatBufferBuilder::PopBytes(size_t)':
+/usr/local/include/flatbuffers/flatbuffers.h:798:34: error: 'buf_' was not declared in this scope
+   void PopBytes(size_t amount) { buf_.pop(amount); }
+                                  ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::FlatBufferBuilder::AssertScalarT()':
+/usr/local/include/flatbuffers/flatbuffers.h:803:19: error: 'is_scalar' is not a member of 'std'
+     static_assert(std::is_scalar<T>::value
+                   ^
+/usr/local/include/flatbuffers/flatbuffers.h:803:35: error: expected primary-expression before '>' token
+     static_assert(std::is_scalar<T>::value
+                                   ^
+/usr/local/include/flatbuffers/flatbuffers.h:803:36: error: '::value' has not been declared
+     static_assert(std::is_scalar<T>::value
+                                    ^
+/usr/local/include/flatbuffers/flatbuffers.h:806:37: error: there are no arguments to 'static_assert' that depend on a template parameter, so a declaration of 'static_assert' must be available [-fpermissive]
+            "T must be a scalar type");
+                                     ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::FlatBufferBuilder::TrackField(int, int)':
+/usr/local/include/flatbuffers/flatbuffers.h:827:5: error: 'FieldLoc' was not declared in this scope
+     FieldLoc fl = { off, field };
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h:828:5: error: 'offsetbuf_' was not declared in this scope
+     offsetbuf_.push_back(fl);
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h:828:26: error: 'fl' was not declared in this scope
+     offsetbuf_.push_back(fl);
+                          ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::FlatBufferBuilder::AddElement(int, T, T)':
+/usr/local/include/flatbuffers/flatbuffers.h:834:22: error: 'force_defaults_' was not declared in this scope
+     if (e == def && !force_defaults_) return;
+                      ^
+/usr/local/include/flatbuffers/flatbuffers.h:835:10: error: 'off' does not name a type
+     auto off = PushElement(e);
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:836:23: error: 'off' was not declared in this scope
+     TrackField(field, off);
+                       ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::FlatBufferBuilder::AddOffset(int, flatbuffers::Offset<T>)':
+/usr/local/include/flatbuffers/flatbuffers.h:841:51: error: 'uoffset_t' does not name a type
+     AddElement(field, ReferTo(off.o), static_cast<uoffset_t>(0));
+                                                   ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::FlatBufferBuilder::AddStruct(int, const T*)':
+/usr/local/include/flatbuffers/flatbuffers.h:847:5: error: 'buf_' was not declared in this scope
+     buf_.push_small(*structptr);
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h:848:31: error: there are no arguments to 'GetSize' that depend on a template parameter, so a declaration of 'GetSize' must be available [-fpermissive]
+     TrackField(field, GetSize());
+                               ^
+In file included from /usr/local/include/flatbuffers/flatbuffers.h:20:0,
+                 from sample_generated.h:7,
+                 from test.cpp:1:
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::FlatBufferBuilder::NotNested()':
+/usr/local/include/flatbuffers/flatbuffers.h:875:5: error: 'nested' was not declared in this scope
+     assert(!nested);
+     ^
+In file included from sample_generated.h:7:0,
+                 from test.cpp:1:
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::FlatBufferBuilder::Required(flatbuffers::Offset<T>, int)':
+/usr/local/include/flatbuffers/flatbuffers.h:948:10: error: 'table_ptr' does not name a type
+     auto table_ptr = buf_.data_at(table.o);
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:949:10: error: 'vtable_ptr' does not name a type
+     auto vtable_ptr = table_ptr - ReadScalar<soffset_t>(table_ptr);
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:950:26: error: 'voffset_t' was not declared in this scope
+     bool ok = ReadScalar<voffset_t>(vtable_ptr + field) != 0;
+                          ^
+/usr/local/include/flatbuffers/flatbuffers.h:950:37: error: 'vtable_ptr' was not declared in this scope
+     bool ok = ReadScalar<voffset_t>(vtable_ptr + field) != 0;
+                                     ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::FlatBufferBuilder::ClearOffsets()':
+/usr/local/include/flatbuffers/flatbuffers.h:963:25: error: 'offsetbuf_' was not declared in this scope
+   void ClearOffsets() { offsetbuf_.clear(); }
+                         ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::FlatBufferBuilder::PreAlign(size_t, size_t)':
+/usr/local/include/flatbuffers/flatbuffers.h:968:5: error: 'buf_' was not declared in this scope
+     buf_.fill(PaddingBytes(GetSize() + len, alignment));
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h:968:36: error: 'GetSize' was not declared in this scope
+     buf_.fill(PaddingBytes(GetSize() + len, alignment));
+                                    ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::Offset<flatbuffers::String> flatbuffers::FlatBufferBuilder::CreateString(const char*, size_t)':
+/usr/local/include/flatbuffers/flatbuffers.h:982:14: error: 'uoffset_t' was not declared in this scope
+     PreAlign<uoffset_t>(len + 1);  // Always 0-terminated.
+              ^
+/usr/local/include/flatbuffers/flatbuffers.h:982:32: error: no matching function for call to 'flatbuffers::FlatBufferBuilder::PreAlign(size_t)'
+     PreAlign<uoffset_t>(len + 1);  // Always 0-terminated.
+                                ^
+/usr/local/include/flatbuffers/flatbuffers.h:970:29: note: candidate: template<class T> void flatbuffers::FlatBufferBuilder::PreAlign(size_t)
+   template<typename T> void PreAlign(size_t len) {
+                             ^
+/usr/local/include/flatbuffers/flatbuffers.h:970:29: note:   template argument deduction/substitution failed:
+/usr/local/include/flatbuffers/flatbuffers.h:982:32: error: template argument 1 is invalid
+     PreAlign<uoffset_t>(len + 1);  // Always 0-terminated.
+                                ^
+/usr/local/include/flatbuffers/flatbuffers.h:983:5: error: 'buf_' was not declared in this scope
+     buf_.fill(1);
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h:984:38: error: expected '>' before 'uint8_t'
+     PushBytes(reinterpret_cast<const uint8_t *>(str), len);
+                                      ^
+/usr/local/include/flatbuffers/flatbuffers.h:984:38: error: expected '(' before 'uint8_t'
+/usr/local/include/flatbuffers/flatbuffers.h:984:38: error: 'uint8_t' was not declared in this scope
+/usr/local/include/flatbuffers/flatbuffers.h:984:47: error: expected primary-expression before '>' token
+     PushBytes(reinterpret_cast<const uint8_t *>(str), len);
+                                               ^
+/usr/local/include/flatbuffers/flatbuffers.h:985:29: error: 'uoffset_t' does not name a type
+     PushElement(static_cast<uoffset_t>(len));
+                             ^
+/usr/local/include/flatbuffers/flatbuffers.h:985:44: error: 'PushElement' was not declared in this scope
+     PushElement(static_cast<uoffset_t>(len));
+                                            ^
+/usr/local/include/flatbuffers/flatbuffers.h:986:35: error: 'GetSize' was not declared in this scope
+     return Offset<String>(GetSize());
+                                   ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::Offset<flatbuffers::String> flatbuffers::FlatBufferBuilder::CreateString(const flatbuffers::String*)':
+/usr/local/include/flatbuffers/flatbuffers.h:1007:50: error: 'const struct flatbuffers::String' has no member named 'Length'
+     return str ? CreateString(str->c_str(), str->Length()) : 0;
+                                                  ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::Offset<flatbuffers::String> flatbuffers::FlatBufferBuilder::CreateSharedString(const char*, size_t)':
+/usr/local/include/flatbuffers/flatbuffers.h:1026:10: error: 'string_pool' was not declared in this scope
+     if (!string_pool)
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:1027:25: error: expected type-specifier before 'StringOffsetMap'
+       string_pool = new StringOffsetMap(StringOffsetCompare(buf_));
+                         ^
+/usr/local/include/flatbuffers/flatbuffers.h:1028:10: error: 'size_before_string' does not name a type
+     auto size_before_string = buf_.size();
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:1031:10: error: 'off' does not name a type
+     auto off = CreateString(str, len);
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:1032:10: error: 'it' does not name a type
+     auto it = string_pool->find(off);
+          ^
+/usr/local/include/flatbuffers/flatbuffers.h:1034:9: error: 'it' was not declared in this scope
+     if (it != string_pool->end()) {
+         ^
+/usr/local/include/flatbuffers/flatbuffers.h:1034:15: error: 'string_pool' was not declared in this scope
+     if (it != string_pool->end()) {
+               ^
+/usr/local/include/flatbuffers/flatbuffers.h:1036:7: error: 'buf_' was not declared in this scope
+       buf_.pop(buf_.size() - size_before_string);
+       ^
+/usr/local/include/flatbuffers/flatbuffers.h:1036:30: error: 'size_before_string' was not declared in this scope
+       buf_.pop(buf_.size() - size_before_string);
+                              ^
+/usr/local/include/flatbuffers/flatbuffers.h:1040:5: error: 'string_pool' was not declared in this scope
+     string_pool->insert(off);
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h:1040:25: error: 'off' was not declared in this scope
+     string_pool->insert(off);
+                         ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::Offset<flatbuffers::String> flatbuffers::FlatBufferBuilder::CreateSharedString(const flatbuffers::String*)':
+/usr/local/include/flatbuffers/flatbuffers.h:1068:50: error: 'const struct flatbuffers::String' has no member named 'Length'
+     return CreateSharedString(str->c_str(), str->Length());
+                                                  ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'void flatbuffers::FlatBufferBuilder::StartVector(size_t, size_t)':
+/usr/local/include/flatbuffers/flatbuffers.h:1080:5: error: 'nested' was not declared in this scope
+     nested = true;
+     ^
+/usr/local/include/flatbuffers/flatbuffers.h:1081:14: error: 'uoffset_t' was not declared in this scope
+     PreAlign<uoffset_t>(len * elemsize);
+              ^
+/usr/local/include/flatbuffers/flatbuffers.h:1081:39: error: no matching function for call to 'flatbuffers::FlatBufferBuilder::PreAlign(size_t)'
+     PreAlign<uoffset_t>(len * elemsize);
+                                       ^
+/usr/local/include/flatbuffers/flatbuffers.h:970:29: note: candidate: template<class T> void flatbuffers::FlatBufferBuilder::PreAlign(size_t)
+   template<typename T> void PreAlign(size_t len) {
+                             ^
+/usr/local/include/flatbuffers/flatbuffers.h:970:29: note:   template argument deduction/substitution failed:
+/usr/local/include/flatbuffers/flatbuffers.h:1081:39: error: template argument 1 is invalid
+     PreAlign<uoffset_t>(len * elemsize);
+                                       ^
+/usr/local/include/flatbuffers/flatbuffers.h: In member function 'flatbuffers::Offset<flatbuffers::Vector<T> > flatbuffers::FlatBufferBuilder::CreateVector(const T*, size_t)':
+/usr/local/include/flatbuffers/flatbuffers.h:1109:40: error: expected '>' before 'uint8_t'
+       PushBytes(reinterpret_cast<const uint8_t *>(v), len);
+                                        ^
+/usr/local/include/flatbuffers/flatbuffers.h:1109:40: error: expected '(' before 'uint8_t'
+/usr/local/include/flatbuffers/flatbuffers.h:1109:40: error: 'uint8_t' was not declared in this scope
+/usr/local/include/flatbuffers/flatbuffers.h:1109:49: error: expected primary-expression before '>' token
+       PushBytes(reinterpret_cast<const uint8_t *>(v), len);
+                                                 ^
+/usr/local/include/flatbuffers/flatbuffers.h:1109:59: error: expected ')' before ';' token
+       PushBytes(reinterpret_cast<const uint8_t *>(v), len);
+                                                           ^
+/usr/local/include/flatbuffers/flatbuffers.h:1111:17: error: 'i' does not name a type
+       for (auto i = len; i > 0; ) {
+                 ^
+/usr/local/include/flatbuffers/flatbuffers.h:1111:26: error: expected ';' before 'i'
+       for (auto i = len; i > 0; ) {
+                          ^
+/usr/local/include/flatbuffers/flatbuffers.h:1111:26: error: 'i' was not declared in this scope
+/usr/local/include/flatbuffers/flatbuffers.h:1112:27: error: there are no arguments to 'PushElement' that depend on a template parameter, so a declaration of 'PushElement' must be available [-fpermissive]
+         PushElement(v[--i]);
+                           ^
+/usr/local/include/flatbuffers/flatbuffers.h:1115:27: error: '>>' should be '> >' within a nested template argument list
+     return Offset<Vector<T>>(EndVector(len));
+                           ^
+/usr/local/include/flatbuffers/flatbuffers.h:1115:43: error: there are no arguments to 'EndVector' that depend on a template parameter, so a declaration of 'EndVector' must be available [-fpermissive]
+     return Offset<Vector<T>>(EndVector(len));
+                                           ^
+/usr/local/include/flatbuffers/flatbuffers.h: At global scope:
+/usr/local/include/flatbuffers/flatbuffers.h:1126:3: error: expected unqualified-id at end of input
+   }
+   ^
+/usr/local/include/flatbuffers/flatbuffers.h:1126:3: error: expected '}' at end of input
+make: *** [test] Error 1
