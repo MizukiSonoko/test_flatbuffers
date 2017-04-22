@@ -2,16 +2,34 @@ namespace sample;
 
 attribute "priority";
 
+
+namespace sample2;
+
+table NestReq {
+    text: string (required);
+}
+
+table NestedRes {
+    message: string (required);
+}
+
 table Request {
   text: string (required);
   integer: int;
+  res: [ubyte] (required, nested_flatbuffer: "NestedReq");
+}
+
+table Request {
+  text: string (required);
+  integer: int;
+  res: [ubyte] (required, nested_flatbuffer: "NestedRes");
 }
 
 table Response {
   message: string (required);
   core:    int;
 }
- 
+
 rpc_service SampleEndpoint {
     Port(Request):Response (streaming: "none");
 }
