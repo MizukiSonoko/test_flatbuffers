@@ -22,10 +22,17 @@ class ServiceImpl final : public sample::SampleEndpoint::Service {
         flatbuffers::BufferRef<Response> *response
     ) override {
         fbb_.Clear();
+
+        auto nested_res_offset = CreateNestedRes(
+            fbb_,
+            fbb_.CreateString("Nested " + request->GetRoot()->text()->str())
+        );
+
         auto response_offset = CreateResponse(
              fbb_,
              fbb_.CreateString("Ok! " + request->GetRoot()->text()->str()),
-             request->GetRoot()->integer()
+             request->GetRoot()->integer(),
+             nested_res_offset
         );
         fbb_.Finish(response_offset);
         *response = flatbuffers::BufferRef<Response>(
