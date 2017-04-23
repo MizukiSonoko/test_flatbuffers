@@ -30,4 +30,4 @@ run: flatbuf_test
 .PHONY: clean
 clean:
 	- rm flatbuf_test
-	- rm sample_generated.h sample2_generated.h
+	- rm sample_generated.h sample2_generated.h grpc/for_grpc_generated.h
