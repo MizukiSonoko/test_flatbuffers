@@ -1,4 +1,3 @@
-
 #include <csignal>
 #include <atomic>
 #include <thread>
@@ -17,22 +16,33 @@ using namespace sample;
 
 class ServiceImpl final : public sample::SampleEndpoint::Service {
     virtual ::grpc::Status Port(
-        ::grpc::ServerContext* context,
-        const flatbuffers::BufferRef<Request> *request,
-        flatbuffers::BufferRef<Response> *response
+            ::grpc::ServerContext* context,
+            const flatbuffers::BufferRef<Request> *request,
+            flatbuffers::BufferRef<Response> *response
     ) override {
         fbb_.Clear();
-
-        auto nested_res_offset = CreateNestedRes(
-            fbb_,
-            fbb_.CreateString("Nested " + request->GetRoot()->text()->str())
+        std::unique_ptr<std::vector<uint8_t>> nested_res_vec(
+                new std::vector<uint8_t>()
         );
+        {
+            flatbuffers::FlatBufferBuilder fbb_nested;
+            auto nested_res_offset = CreateNestedRes(
+                fbb_nested,
+                fbb_nested.CreateString("Nested " + request->GetRoot()->text()->str())
+            );
+            fbb_nested.Finish(nested_res_offset);
+            auto buf = fbb_nested.GetBufferPointer();
 
-        auto response_offset = CreateResponse(
-             fbb_,
-             fbb_.CreateString("Ok! " + request->GetRoot()->text()->str()),
-             request->GetRoot()->integer(),
-             nested_res_offset
+            nested_res_vec->assign(
+                    buf, buf + fbb_nested.GetSize()
+            );
+        }
+        auto msg = "Ok! " + request->GetRoot()->text()->str();
+        auto response_offset = CreateResponseDirect(
+                fbb_,
+                msg.c_str(),
+                request->GetRoot()->integer(),
+                nested_res_vec.get()
         );
         fbb_.Finish(response_offset);
         *response = flatbuffers::BufferRef<Response>(
@@ -40,7 +50,7 @@ class ServiceImpl final : public sample::SampleEndpoint::Service {
         );
         return grpc::Status::OK;
     }
-  private:
+private:
     flatbuffers::FlatBufferBuilder fbb_;
 };
 
