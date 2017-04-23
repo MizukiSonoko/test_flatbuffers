@@ -8,14 +8,119 @@
 
 namespace sample {
 
+struct NestedReq;
+
+struct NestedRes;
+
 struct Request;
 
 struct Response;
 
+struct NestedReq FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  enum {
+    VT_TEXT = 4
+  };
+  const flatbuffers::String *text() const {
+    return GetPointer<const flatbuffers::String *>(VT_TEXT);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyFieldRequired<flatbuffers::uoffset_t>(verifier, VT_TEXT) &&
+           verifier.Verify(text()) &&
+           verifier.EndTable();
+  }
+};
+
+struct NestedReqBuilder {
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_text(flatbuffers::Offset<flatbuffers::String> text) {
+    fbb_.AddOffset(NestedReq::VT_TEXT, text);
+  }
+  NestedReqBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  NestedReqBuilder &operator=(const NestedReqBuilder &);
+  flatbuffers::Offset<NestedReq> Finish() {
+    const auto end = fbb_.EndTable(start_, 1);
+    auto o = flatbuffers::Offset<NestedReq>(end);
+    fbb_.Required(o, NestedReq::VT_TEXT);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<NestedReq> CreateNestedReq(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Offset<flatbuffers::String> text = 0) {
+  NestedReqBuilder builder_(_fbb);
+  builder_.add_text(text);
+  return builder_.Finish();
+}
+
+inline flatbuffers::Offset<NestedReq> CreateNestedReqDirect(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    const char *text = nullptr) {
+  return sample::CreateNestedReq(
+      _fbb,
+      text ? _fbb.CreateString(text) : 0);
+}
+
+struct NestedRes FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  enum {
+    VT_MESSAGE = 4
+  };
+  const flatbuffers::String *message() const {
+    return GetPointer<const flatbuffers::String *>(VT_MESSAGE);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyFieldRequired<flatbuffers::uoffset_t>(verifier, VT_MESSAGE) &&
+           verifier.Verify(message()) &&
+           verifier.EndTable();
+  }
+};
+
+struct NestedResBuilder {
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_message(flatbuffers::Offset<flatbuffers::String> message) {
+    fbb_.AddOffset(NestedRes::VT_MESSAGE, message);
+  }
+  NestedResBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  NestedResBuilder &operator=(const NestedResBuilder &);
+  flatbuffers::Offset<NestedRes> Finish() {
+    const auto end = fbb_.EndTable(start_, 1);
+    auto o = flatbuffers::Offset<NestedRes>(end);
+    fbb_.Required(o, NestedRes::VT_MESSAGE);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<NestedRes> CreateNestedRes(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Offset<flatbuffers::String> message = 0) {
+  NestedResBuilder builder_(_fbb);
+  builder_.add_message(message);
+  return builder_.Finish();
+}
+
+inline flatbuffers::Offset<NestedRes> CreateNestedResDirect(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    const char *message = nullptr) {
+  return sample::CreateNestedRes(
+      _fbb,
+      message ? _fbb.CreateString(message) : 0);
+}
+
 struct Request FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum {
     VT_TEXT = 4,
-    VT_INTEGER = 6
+    VT_INTEGER = 6,
+    VT_RES = 8
   };
   const flatbuffers::String *text() const {
     return GetPointer<const flatbuffers::String *>(VT_TEXT);
@@ -23,11 +128,20 @@ struct Request FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   int32_t integer() const {
     return GetField<int32_t>(VT_INTEGER, 0);
   }
+  const flatbuffers::Vector<uint8_t> *res() const {
+    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_RES);
+  }
+  const sample::NestedReq *res_nested_root() const {
+    const uint8_t* data = res()->Data();
+    return flatbuffers::GetRoot<sample::NestedReq>(data);
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyFieldRequired<flatbuffers::uoffset_t>(verifier, VT_TEXT) &&
            verifier.Verify(text()) &&
            VerifyField<int32_t>(verifier, VT_INTEGER) &&
+           VerifyFieldRequired<flatbuffers::uoffset_t>(verifier, VT_RES) &&
+           verifier.Verify(res()) &&
            verifier.EndTable();
   }
 };
@@ -41,15 +155,19 @@ struct RequestBuilder {
   void add_integer(int32_t integer) {
     fbb_.AddElement<int32_t>(Request::VT_INTEGER, integer, 0);
   }
+  void add_res(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> res) {
+    fbb_.AddOffset(Request::VT_RES, res);
+  }
   RequestBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   RequestBuilder &operator=(const RequestBuilder &);
   flatbuffers::Offset<Request> Finish() {
-    const auto end = fbb_.EndTable(start_, 2);
+    const auto end = fbb_.EndTable(start_, 3);
     auto o = flatbuffers::Offset<Request>(end);
     fbb_.Required(o, Request::VT_TEXT);
+    fbb_.Required(o, Request::VT_RES);
     return o;
   }
 };
@@ -57,8 +175,10 @@ struct RequestBuilder {
 inline flatbuffers::Offset<Request> CreateRequest(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<flatbuffers::String> text = 0,
-    int32_t integer = 0) {
+    int32_t integer = 0,
+    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> res = 0) {
   RequestBuilder builder_(_fbb);
+  builder_.add_res(res);
   builder_.add_integer(integer);
   builder_.add_text(text);
   return builder_.Finish();
@@ -67,17 +187,20 @@ inline flatbuffers::Offset<Request> CreateRequest(
 inline flatbuffers::Offset<Request> CreateRequestDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const char *text = nullptr,
-    int32_t integer = 0) {
+    int32_t integer = 0,
+    const std::vector<uint8_t> *res = nullptr) {
   return sample::CreateRequest(
       _fbb,
       text ? _fbb.CreateString(text) : 0,
-      integer);
+      integer,
+      res ? _fbb.CreateVector<uint8_t>(*res) : 0);
 }
 
 struct Response FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum {
     VT_MESSAGE = 4,
-    VT_CORE = 6
+    VT_CORE = 6,
+    VT_RES = 8
   };
   const flatbuffers::String *message() const {
     return GetPointer<const flatbuffers::String *>(VT_MESSAGE);
@@ -85,11 +208,20 @@ struct Response FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   int32_t core() const {
     return GetField<int32_t>(VT_CORE, 0);
   }
+  const flatbuffers::Vector<uint8_t> *res() const {
+    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_RES);
+  }
+  const sample::NestedRes *res_nested_root() const {
+    const uint8_t* data = res()->Data();
+    return flatbuffers::GetRoot<sample::NestedRes>(data);
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyFieldRequired<flatbuffers::uoffset_t>(verifier, VT_MESSAGE) &&
            verifier.Verify(message()) &&
            VerifyField<int32_t>(verifier, VT_CORE) &&
+           VerifyFieldRequired<flatbuffers::uoffset_t>(verifier, VT_RES) &&
+           verifier.Verify(res()) &&
            verifier.EndTable();
   }
 };
@@ -103,15 +235,19 @@ struct ResponseBuilder {
   void add_core(int32_t core) {
     fbb_.AddElement<int32_t>(Response::VT_CORE, core, 0);
   }
+  void add_res(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> res) {
+    fbb_.AddOffset(Response::VT_RES, res);
+  }
   ResponseBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   ResponseBuilder &operator=(const ResponseBuilder &);
   flatbuffers::Offset<Response> Finish() {
-    const auto end = fbb_.EndTable(start_, 2);
+    const auto end = fbb_.EndTable(start_, 3);
     auto o = flatbuffers::Offset<Response>(end);
     fbb_.Required(o, Response::VT_MESSAGE);
+    fbb_.Required(o, Response::VT_RES);
     return o;
   }
 };
@@ -119,8 +255,10 @@ struct ResponseBuilder {
 inline flatbuffers::Offset<Response> CreateResponse(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<flatbuffers::String> message = 0,
-    int32_t core = 0) {
+    int32_t core = 0,
+    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> res = 0) {
   ResponseBuilder builder_(_fbb);
+  builder_.add_res(res);
   builder_.add_core(core);
   builder_.add_message(message);
   return builder_.Finish();
@@ -129,11 +267,13 @@ inline flatbuffers::Offset<Response> CreateResponse(
 inline flatbuffers::Offset<Response> CreateResponseDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const char *message = nullptr,
-    int32_t core = 0) {
+    int32_t core = 0,
+    const std::vector<uint8_t> *res = nullptr) {
   return sample::CreateResponse(
       _fbb,
       message ? _fbb.CreateString(message) : 0,
-      core);
+      core,
+      res ? _fbb.CreateVector<uint8_t>(*res) : 0);
 }
 
 inline const sample::Request *GetRequest(const void *buf) {

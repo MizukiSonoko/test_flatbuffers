@@ -2,10 +2,7 @@ namespace sample;
 
 attribute "priority";
 
-
-namespace sample2;
-
-table NestReq {
+table NestedReq {
     text: string (required);
 }
 
@@ -19,15 +16,10 @@ table Request {
   res: [ubyte] (required, nested_flatbuffer: "NestedReq");
 }
 
-table Request {
-  text: string (required);
-  integer: int;
-  res: [ubyte] (required, nested_flatbuffer: "NestedRes");
-}
-
 table Response {
   message: string (required);
   core:    int;
+  res: [ubyte] (required, nested_flatbuffer: "NestedRes");
 }
 
 rpc_service SampleEndpoint {
