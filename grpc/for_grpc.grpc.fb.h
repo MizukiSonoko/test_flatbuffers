@@ -34,8 +34,16 @@ class SampleEndpoint GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< flatbuffers::BufferRef<Response>>> AsyncPort(::grpc::ClientContext* context, const flatbuffers::BufferRef<Request>& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< flatbuffers::BufferRef<Response>>>(AsyncPortRaw(context, request, cq));
     }
+    std::unique_ptr< ::grpc::ClientReaderInterface< flatbuffers::BufferRef<Response>>> Stream(::grpc::ClientContext* context, const flatbuffers::BufferRef<Request>& request) {
+      return std::unique_ptr< ::grpc::ClientReaderInterface< flatbuffers::BufferRef<Response>>>(StreamRaw(context, request));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< flatbuffers::BufferRef<Response>>> AsyncStream(::grpc::ClientContext* context, const flatbuffers::BufferRef<Request>& request, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< flatbuffers::BufferRef<Response>>>(AsyncStreamRaw(context, request, cq, tag));
+    }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< flatbuffers::BufferRef<Response>>* AsyncPortRaw(::grpc::ClientContext* context, const flatbuffers::BufferRef<Request>& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientReaderInterface< flatbuffers::BufferRef<Response>>* StreamRaw(::grpc::ClientContext* context, const flatbuffers::BufferRef<Request>& request) = 0;
+    virtual ::grpc::ClientAsyncReaderInterface< flatbuffers::BufferRef<Response>>* AsyncStreamRaw(::grpc::ClientContext* context, const flatbuffers::BufferRef<Request>& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
   };
   class Stub GRPC_FINAL : public StubInterface {
    public:
@@ -44,11 +52,20 @@ class SampleEndpoint GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< flatbuffers::BufferRef<Response>>> AsyncPort(::grpc::ClientContext* context, const flatbuffers::BufferRef<Request>& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< flatbuffers::BufferRef<Response>>>(AsyncPortRaw(context, request, cq));
     }
+    std::unique_ptr< ::grpc::ClientReader< flatbuffers::BufferRef<Response>>> Stream(::grpc::ClientContext* context, const flatbuffers::BufferRef<Request>& request) {
+      return std::unique_ptr< ::grpc::ClientReader< flatbuffers::BufferRef<Response>>>(StreamRaw(context, request));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReader< flatbuffers::BufferRef<Response>>> AsyncStream(::grpc::ClientContext* context, const flatbuffers::BufferRef<Request>& request, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReader< flatbuffers::BufferRef<Response>>>(AsyncStreamRaw(context, request, cq, tag));
+    }
   
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     ::grpc::ClientAsyncResponseReader< flatbuffers::BufferRef<Response>>* AsyncPortRaw(::grpc::ClientContext* context, const flatbuffers::BufferRef<Request>& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientReader< flatbuffers::BufferRef<Response>>* StreamRaw(::grpc::ClientContext* context, const flatbuffers::BufferRef<Request>& request) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncReader< flatbuffers::BufferRef<Response>>* AsyncStreamRaw(::grpc::ClientContext* context, const flatbuffers::BufferRef<Request>& request, ::grpc::CompletionQueue* cq, void* tag) GRPC_OVERRIDE;
     const ::grpc::RpcMethod rpcmethod_Port_;
+    const ::grpc::RpcMethod rpcmethod_Stream_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
   
@@ -57,6 +74,7 @@ class SampleEndpoint GRPC_FINAL {
     Service();
     virtual ~Service();
     virtual ::grpc::Status Port(::grpc::ServerContext* context, const flatbuffers::BufferRef<Request>* request, flatbuffers::BufferRef<Response>* response);
+    virtual ::grpc::Status Stream(::grpc::ServerContext* context, const flatbuffers::BufferRef<Request>* request, ::grpc::ServerWriter< flatbuffers::BufferRef<Response>>* writer);
   };
   template <class BaseClass>
   class WithAsyncMethod_Port : public BaseClass {
@@ -78,7 +96,27 @@ class SampleEndpoint GRPC_FINAL {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef   WithAsyncMethod_Port<  Service   >   AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_Stream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_Stream() {
+      ::grpc::Service::MarkMethodAsync(1);
+    }
+    ~WithAsyncMethod_Stream() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Stream(::grpc::ServerContext* context, const flatbuffers::BufferRef<Request>* request, ::grpc::ServerWriter< flatbuffers::BufferRef<Response>>* writer) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestStream(::grpc::ServerContext* context, flatbuffers::BufferRef<Request>* request, ::grpc::ServerAsyncWriter< flatbuffers::BufferRef<Response>>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncServerStreaming(1, context, request, writer, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef   WithAsyncMethod_Port<  WithAsyncMethod_Stream<  Service   >   >   AsyncService;
   template <class BaseClass>
   class WithGenericMethod_Port : public BaseClass {
    private:
@@ -92,6 +130,23 @@ class SampleEndpoint GRPC_FINAL {
     }
     // disable synchronous version of this method
     ::grpc::Status Port(::grpc::ServerContext* context, const flatbuffers::BufferRef<Request>* request, flatbuffers::BufferRef<Response>* response) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_Stream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_Stream() {
+      ::grpc::Service::MarkMethodGeneric(1);
+    }
+    ~WithGenericMethod_Stream() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Stream(::grpc::ServerContext* context, const flatbuffers::BufferRef<Request>* request, ::grpc::ServerWriter< flatbuffers::BufferRef<Response>>* writer) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }

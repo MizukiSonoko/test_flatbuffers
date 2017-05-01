@@ -18,6 +18,7 @@ namespace sample {
 
 static const char* SampleEndpoint_method_names[] = {
   "/sample.SampleEndpoint/Port",
+  "/sample.SampleEndpoint/Stream",
 };
 
 std::unique_ptr< SampleEndpoint::Stub> SampleEndpoint::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -27,6 +28,7 @@ std::unique_ptr< SampleEndpoint::Stub> SampleEndpoint::NewStub(const std::shared
 
 SampleEndpoint::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   : channel_(channel)  , rpcmethod_Port_(SampleEndpoint_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_Stream_(SampleEndpoint_method_names[1], ::grpc::RpcMethod::SERVER_STREAMING, channel)
   {}
   
 ::grpc::Status SampleEndpoint::Stub::Port(::grpc::ClientContext* context, const flatbuffers::BufferRef<Request>& request, flatbuffers::BufferRef<Response>* response) {
@@ -37,6 +39,14 @@ SampleEndpoint::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& cha
   return new ::grpc::ClientAsyncResponseReader< flatbuffers::BufferRef<Response>>(channel_.get(), cq, rpcmethod_Port_, context, request);
 }
 
+::grpc::ClientReader< flatbuffers::BufferRef<Response>>* SampleEndpoint::Stub::StreamRaw(::grpc::ClientContext* context, const flatbuffers::BufferRef<Request>& request) {
+  return new ::grpc::ClientReader< flatbuffers::BufferRef<Response>>(channel_.get(), rpcmethod_Stream_, context, request);
+}
+
+::grpc::ClientAsyncReader< flatbuffers::BufferRef<Response>>* SampleEndpoint::Stub::AsyncStreamRaw(::grpc::ClientContext* context, const flatbuffers::BufferRef<Request>& request, ::grpc::CompletionQueue* cq, void* tag) {
+  return new ::grpc::ClientAsyncReader< flatbuffers::BufferRef<Response>>(channel_.get(), cq, rpcmethod_Stream_, context, request, tag);
+}
+
 SampleEndpoint::Service::Service() {
   (void)SampleEndpoint_method_names;
   AddMethod(new ::grpc::RpcServiceMethod(
@@ -44,6 +54,11 @@ SampleEndpoint::Service::Service() {
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< SampleEndpoint::Service, flatbuffers::BufferRef<Request>, flatbuffers::BufferRef<Response>>(
           std::mem_fn(&SampleEndpoint::Service::Port), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      SampleEndpoint_method_names[1],
+      ::grpc::RpcMethod::SERVER_STREAMING,
+      new ::grpc::ServerStreamingHandler< SampleEndpoint::Service, flatbuffers::BufferRef<Request>, flatbuffers::BufferRef<Response>>(
+          std::mem_fn(&SampleEndpoint::Service::Stream), this)));
 }
 
 SampleEndpoint::Service::~Service() {
@@ -53,6 +68,13 @@ SampleEndpoint::Service::~Service() {
   (void) context;
   (void) request;
   (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status SampleEndpoint::Service::Stream(::grpc::ServerContext* context, const flatbuffers::BufferRef<Request>* request, ::grpc::ServerWriter< flatbuffers::BufferRef<Response>>* writer) {
+  (void) context;
+  (void) request;
+  (void) writer;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 

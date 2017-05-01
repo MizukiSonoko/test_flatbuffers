@@ -24,7 +24,7 @@ table Response {
 
 rpc_service SampleEndpoint {
     Port(Request):Response (streaming: "none");
+    Stream(Request):Response (streaming: "server", idempotent);
 }
-
 
 root_type Request;
