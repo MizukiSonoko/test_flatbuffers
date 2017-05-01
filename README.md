@@ -25,7 +25,7 @@ $ ./flatbuf_test
 
 ### Flatc 
 ```sh
-flatc version 1.6.0 (Apr  3 2017)
+flatc version 1.6.0 (Apr 19 2017)
 ```
 
 ### OS
