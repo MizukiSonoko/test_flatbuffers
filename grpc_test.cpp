@@ -1,16 +1,11 @@
 #include <csignal>
+#include <chrono>
 #include <atomic>
 #include <thread>
 #include <grpc++/grpc++.h>
-
+#include <iostream>
 #include "grpc/for_grpc.grpc.fb.h"
 #include "grpc/for_grpc_generated.h"
-
-std::atomic_bool running(true);
-
-void signalHandler(int param) {;
-    running = false;
-}
 
 using namespace sample;
 
@@ -50,6 +45,50 @@ class ServiceImpl final : public sample::SampleEndpoint::Service {
         );
         return grpc::Status::OK;
     }
+
+    flatbuffers::BufferRef<Response> make(int i){
+        std::unique_ptr<std::vector<uint8_t>> nested_res_vec(
+                new std::vector<uint8_t>()
+        );
+        {
+            flatbuffers::FlatBufferBuilder fbb_nested;
+            auto nested_res_offset = CreateNestedRes(
+                fbb_nested,
+                fbb_nested.CreateString("Nested ")
+            );
+            fbb_nested.Finish(nested_res_offset);
+            auto buf = fbb_nested.GetBufferPointer();
+
+            nested_res_vec->assign(
+                    buf, buf + fbb_nested.GetSize()
+            );
+        }
+        auto msg = "Ok! " + std::to_string(i);
+        auto response_offset = CreateResponseDirect(
+                fbb_,
+                msg.c_str(),
+                i,
+                nested_res_vec.get()
+        );
+        fbb_.Finish(response_offset);
+        return flatbuffers::BufferRef<Response>(
+                fbb_.GetBufferPointer(),fbb_.GetSize()
+        );
+    }
+    virtual ::grpc::Status Stream(
+            ::grpc::ServerContext* context,
+            const flatbuffers::BufferRef<Request> *request,
+	    ::grpc::ServerWriter< flatbuffers::BufferRef<Response>>* writer
+    ) override {
+        
+        //std::chrono::milliseconds dura( 3000 );
+        std::cout <<"Start streming!! " << std::endl;
+        for(long long int i = 0; i < 10000; i++){
+            std::cout <<"Streming! " << i << std::endl;
+            //std::this_thread::sleep_for( dura );
+            writer->Write(make(i));
+        }
+    }
 private:
     flatbuffers::FlatBufferBuilder fbb_;
 };
@@ -76,14 +115,12 @@ void run() {
 }
 
 int main(int /*argc*/, const char * /*argv*/[]) {
-    std::signal(SIGINT, signalHandler);
-
     std::thread server_thread(run);
 
     std::unique_lock<std::mutex> lock(wait_for_server);
     while (!server) server_cv.wait(lock);
 
-    while(running){};
+    while(1){};
 
     server->Shutdown();
     server_thread.join();
