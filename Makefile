@@ -1,5 +1,5 @@
 
-all: flatbuf_test grpc_server
+all: flatbuf_test grpc_server grpc_client
 
 sample_generated.h:
 	flatc --version
@@ -19,6 +19,9 @@ grpc/for_grpc_generated.h:
 
 flatbuf_test: sample_generated.h sample2_generated.h
 	g++ -std=c++0x -Wl,-no-as-needed $(INCS) test.cpp -o $@
+
+grpc_client: grpc/for_grpc_generated.h
+	g++ -std=c++0x -Wl,-no-as-needed -lgrpc -lgrpc++ -lgpr -pthread $(INCS) grpc/for_grpc.grpc.fb.cc grpc_client.cpp -o $@
 
 grpc_server: grpc/for_grpc_generated.h
 	g++ -std=c++0x -Wl,-no-as-needed -lgrpc -lgrpc++ -lgpr -pthread $(INCS) grpc/for_grpc.grpc.fb.cc grpc_test.cpp -o $@
