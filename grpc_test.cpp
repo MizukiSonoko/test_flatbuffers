@@ -8,6 +8,7 @@
 #include "grpc/for_grpc_generated.h"
 
 using namespace sample;
+static int count;
 
 class ServiceImpl final : public sample::SampleEndpoint::Service {
     virtual ::grpc::Status Port(
@@ -83,11 +84,13 @@ class ServiceImpl final : public sample::SampleEndpoint::Service {
         
         //std::chrono::milliseconds dura( 3000 );
         std::cout <<"Start streming!! " << std::endl;
-        for(long long int i = 0; i < 10000; i++){
+        for(long long int i = 0; i < 100; i++){
             std::cout <<"Streming! " << i << std::endl;
             //std::this_thread::sleep_for( dura );
             writer->Write(make(i));
+            count++;
         }
+        return grpc::Status::OK;
     }
 private:
     flatbuffers::FlatBufferBuilder fbb_;
@@ -120,7 +123,7 @@ int main(int /*argc*/, const char * /*argv*/[]) {
     std::unique_lock<std::mutex> lock(wait_for_server);
     while (!server) server_cv.wait(lock);
 
-    while(1){};
+    while(count < 400){};
 
     server->Shutdown();
     server_thread.join();
