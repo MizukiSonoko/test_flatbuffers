@@ -21,10 +21,10 @@ flatbuf_test: sample_generated.h sample2_generated.h
 	g++ -std=c++0x -Wl,-no-as-needed $(INCS) test.cpp -o $@
 
 grpc_client: grpc/for_grpc_generated.h
-	g++ -std=c++0x -Wl,-no-as-needed -lgrpc -lgrpc++ -lgpr -pthread $(INCS) grpc/for_grpc.grpc.fb.cc grpc_client.cpp -o $@
+	g++ -std=c++0x -g3 -O0 -Wl,-no-as-needed -lgrpc -lgrpc++ -lgpr -pthread $(INCS) grpc/for_grpc.grpc.fb.cc grpc_client.cpp -o $@
 
 grpc_server: grpc/for_grpc_generated.h
-	g++ -std=c++0x -Wl,-no-as-needed -lgrpc -lgrpc++ -lgpr -pthread $(INCS) grpc/for_grpc.grpc.fb.cc grpc_test.cpp -o $@
+	g++ -std=c++0x -g3 -O0 -Wl,-no-as-needed -lgrpc -lgrpc++ -lgpr -pthread $(INCS) grpc/for_grpc.grpc.fb.cc grpc_test.cpp -o $@
 
 .PHONY: run
 run: flatbuf_test
